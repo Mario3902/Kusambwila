@@ -10,6 +10,12 @@ import { Dashboard } from "./pages/dashboard";
 import { Profile } from "./pages/profile";
 import { Chat } from "./pages/chat";
 import { NotFound } from "./pages/not-found";
+import { AdminLayout } from "./admin/components/AdminLayout";
+import { AdminDashboard } from "./admin/pages/AdminDashboard";
+import { AdminProperties } from "./admin/pages/AdminProperties";
+import { AdminUsers } from "./admin/pages/AdminUsers";
+import { AdminFinance } from "./admin/pages/AdminFinance";
+import { AdminSettings } from "./admin/pages/AdminSettings";
 
 export const router = createBrowserRouter([
   {
@@ -26,6 +32,17 @@ export const router = createBrowserRouter([
       { path: "profile", Component: Profile },
       { path: "chat", Component: Chat },
       { path: "*", Component: NotFound },
+    ],
+  },
+  {
+    path: "/admin",
+    Component: AdminLayout,
+    children: [
+      { index: true, Component: AdminDashboard },
+      { path: "properties", Component: AdminProperties },
+      { path: "users", Component: AdminUsers },
+      { path: "finance", Component: AdminFinance },
+      { path: "settings", Component: AdminSettings },
     ],
   },
 ]);

@@ -15,6 +15,18 @@ interface PropertyCardProps {
 
 export function PropertyCard({ property }: PropertyCardProps) {
   const [isFavorite, setIsFavorite] = useState(false);
+  const safeImages = Array.isArray((property as any).images) ? (property as any).images : [];
+  const imageSrc =
+    safeImages.length > 0 && safeImages[0]
+      ? safeImages[0]
+      : 'https://images.unsplash.com/photo-1560518883-ce09059eeffa';
+  const zoneRank = ((property as any).zoneRank || 'medium') as keyof typeof zoneRankColors;
+  const verification = (property as any).verification || {
+    isVerified: false,
+    verificationScore: 0,
+    biStatus: 'pending',
+    propertyTitleStatus: 'pending',
+  };
 
   const handleFavorite = (e: React.MouseEvent) => {
     e.preventDefault();
@@ -49,7 +61,7 @@ export function PropertyCard({ property }: PropertyCardProps) {
         <Card className="overflow-hidden hover:shadow-xl transition-all duration-300 border border-gray-100">
           <div className="relative">
             <img
-              src={property.images[0]}
+              src={imageSrc}
               alt={property.title}
               className="w-full h-52 object-cover"
             />
@@ -59,8 +71,8 @@ export function PropertyCard({ property }: PropertyCardProps) {
                   Destaque
                 </Badge>
               )}
-              <Badge className={`${zoneRankColors[property.zoneRank]} border-0`}>
-                {zoneRankLabels[property.zoneRank]}
+              <Badge className={`${zoneRankColors[zoneRank]} border-0`}>
+                {zoneRankLabels[zoneRank]}
               </Badge>
             </div>
             <button
@@ -73,10 +85,10 @@ export function PropertyCard({ property }: PropertyCardProps) {
             </button>
             <div className="absolute bottom-3 left-3">
               <VerificationBadge
-                isVerified={property.verification.isVerified}
-                score={property.verification.verificationScore}
-                biStatus={property.verification.biStatus}
-                propertyTitleStatus={property.verification.propertyTitleStatus}
+                isVerified={verification.isVerified}
+                score={verification.verificationScore}
+                biStatus={verification.biStatus}
+                propertyTitleStatus={verification.propertyTitleStatus}
                 size="sm"
               />
             </div>

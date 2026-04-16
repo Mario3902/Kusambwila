@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { motion } from 'motion/react';
 import { Link, useNavigate } from 'react-router';
 import { LogIn, Mail, Lock, Home } from 'lucide-react';
@@ -11,14 +11,19 @@ import { toast } from 'sonner';
 
 export function Login() {
   const navigate = useNavigate();
-  const { login, isAuthenticated } = useAuth();
+  const { login, isAuthenticated, user } = useAuth();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [loading, setLoading] = useState(false);
 
-  if (isAuthenticated) {
+  useEffect(() => {
+    if (!isAuthenticated) return;
+    if (user?.userType === 'admin') {
+      navigate('/admin');
+      return;
+    }
     navigate('/');
-  }
+  }, [isAuthenticated, user, navigate]);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -32,7 +37,6 @@ export function Login() {
     try {
       await login(email, password);
       toast.success('Login realizado com sucesso!');
-      navigate('/');
     } catch (error) {
       toast.error('Erro ao fazer login. Tente novamente.');
     } finally {

@@ -1,3 +1,4 @@
+import { useState, useEffect } from 'react';
 import { motion } from 'motion/react';
 import { useNavigate } from 'react-router';
 import { Search, Home as HomeIcon, TrendingUp, Shield, Clock, Users, MapPin, ArrowRight, Star, CheckCircle2, Building2, DollarSign } from 'lucide-react';
@@ -5,11 +6,11 @@ import { Button } from '../components/ui/button';
 import { Input } from '../components/ui/input';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '../components/ui/select';
 import { PropertyCard } from '../components/property-card';
-import { mockProperties, districts, propertyTypes, marketStats } from '../lib/mock-data';
-import { useState } from 'react';
+import { districts, propertyTypes } from '../lib/mock-data';
 import { useAuth } from '../contexts/auth-context';
 import { Badge } from '../components/ui/badge';
 import { Card, CardContent } from '../components/ui/card';
+import { api } from '../lib/api';
 
 export function Home() {
   const navigate = useNavigate();
@@ -17,11 +18,22 @@ export function Home() {
   const [searchLocation, setSearchLocation] = useState('');
   const [searchType, setSearchType] = useState('');
   const [searchPrice, setSearchPrice] = useState('');
+  const [featuredProperties, setFeaturedProperties] = useState([]);
+  const [loading, setLoading] = useState(true);
 
-  const featuredProperties = mockProperties.filter(p => p.featured).slice(0, 3);
-  const sortedZones = [...marketStats].sort((a, b) => b.avgPrice - a.avgPrice);
-  const topZones = sortedZones.slice(0, 4);
-  const affordableZones = sortedZones.slice(-4).reverse();
+  useEffect(() => {
+    async function loadFeatured() {
+      try {
+        const properties = await api.properties.getAll();
+        setFeaturedProperties(properties.filter((p: any) => p.featured).slice(0, 3));
+      } catch (err) {
+        console.error('Erro ao carregar imóveis:', err);
+      } finally {
+        setLoading(false);
+      }
+    }
+    loadFeatured();
+  }, []);
 
   const handleSearch = () => {
     const params = new URLSearchParams();
@@ -36,9 +48,8 @@ export function Home() {
     <div className="w-full">
       {/* Hero Section with gradient background */}
       <section className="relative min-h-[650px] flex items-center justify-center overflow-hidden">
-        {/* Animated background */}
         <div className="absolute inset-0 bg-gradient-to-br from-blue-950 via-blue-900 to-green-800">
-          <div className="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA2MCA2MCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48ZyBmaWxsPSJub25lIiBmaWxsLXJ1bGU9ImV2ZW5vZGQiPjxnIGZpbGw9IiNmZmYiIGZpbGwtb3BhY2l0eT0iMC4wMyI+PHBhdGggZD0iTTM2IDM0djZoLTFWMzRoMXptMCAxMHY2aC0xVjQ0aDF6bS0xMCAwdjZoLTFWMzRoMXptMCAxMHY2aC0xVjQ0aDF6bS0xMCAwdjZoLTFWMzRoMXptMCAxMHY2aC0xVjQ0aDF6Ii8+PC9nPjwvZz48L3N2Zz4=')] opacity-50" />
+          <div className="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjAiIGhlaWdodT0iNjAiIHZpZXdCb3g9IjAgMCA2MCA2MCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48ZyBmaWxsPSJub25lIiBmaWxsLXJ1bGU9ImV2ZW5vZGQiPjxnIGZpbGw9IiNmZmYiIGZpbGwtb3BhY2l0eT0iMC4wMyI+PHBhdGggZD0iTTM2IDM0djZoLTFWMzRoMXptMCAxMHY2aC0xVjQ0aDF6bS0xMCAwdjZoLTFWMzRoMXptMCAxMHY2aC0xVjQ0aDF6bS0xMCAwdjZoLTFWMzRoMXptMCAxMHY2aC0xVjQ0aDF6Ii8+PC9nPjwvZz48L3N2Zz4=')] opacity-50" />
           <div className="absolute top-0 left-0 w-96 h-96 bg-green-500/10 rounded-full blur-3xl -translate-x-1/2 -translate-y-1/2" />
           <div className="absolute bottom-0 right-0 w-96 h-96 bg-blue-500/10 rounded-full blur-3xl translate-x-1/2 translate-y-1/2" />
         </div>
@@ -65,7 +76,6 @@ export function Home() {
             </p>
           </motion.div>
 
-          {/* Search Bar */}
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
@@ -117,7 +127,6 @@ export function Home() {
             </div>
           </motion.div>
 
-          {/* Quick Stats */}
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
@@ -140,7 +149,6 @@ export function Home() {
         </div>
       </section>
 
-      {/* Features Section */}
       <section className="py-20 bg-white">
         <div className="container mx-auto px-4">
           <div className="text-center mb-14">
@@ -201,7 +209,6 @@ export function Home() {
         </div>
       </section>
 
-      {/* Zone Price Overview */}
       <section className="py-20 bg-gradient-to-br from-gray-50 to-gray-100">
         <div className="container mx-auto px-4">
           <div className="text-center mb-14">
@@ -213,75 +220,6 @@ export function Home() {
               Compare preços e encontre a zona ideal para o seu orçamento
             </p>
           </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-10">
-            {/* Most Expensive */}
-            <Card className="border-0 shadow-lg overflow-hidden">
-              <div className="bg-gradient-to-r from-red-500 to-red-600 p-4">
-                <h3 className="text-lg font-bold text-white flex items-center gap-2">
-                  <TrendingUp className="w-5 h-5" />
-                  Zonas Mais Caras
-                </h3>
-              </div>
-              <CardContent className="p-0">
-                {topZones.map((zone, index) => (
-                  <button
-                    key={zone.district}
-                    onClick={() => navigate(`/search?district=${zone.district}`)}
-                    className="w-full flex items-center justify-between p-4 hover:bg-gray-50 transition-colors border-b last:border-b-0"
-                  >
-                    <div className="flex items-center gap-3">
-                      <span className="w-8 h-8 rounded-full bg-red-100 text-red-600 flex items-center justify-center text-sm font-bold">
-                        {index + 1}
-                      </span>
-                      <div className="text-left">
-                        <p className="font-semibold">{zone.district}</p>
-                        <p className="text-xs text-gray-500">{zone.listings} imóveis disponíveis</p>
-                      </div>
-                    </div>
-                    <div className="text-right">
-                      <p className="font-bold text-blue-900">{zone.avgPrice.toLocaleString('pt-AO')} Kz</p>
-                      <p className="text-xs text-gray-500">média/mês</p>
-                    </div>
-                  </button>
-                ))}
-              </CardContent>
-            </Card>
-
-            {/* Most Affordable */}
-            <Card className="border-0 shadow-lg overflow-hidden">
-              <div className="bg-gradient-to-r from-green-500 to-green-600 p-4">
-                <h3 className="text-lg font-bold text-white flex items-center gap-2">
-                  <TrendingUp className="w-5 h-5 rotate-180" />
-                  Zonas Mais Acessíveis
-                </h3>
-              </div>
-              <CardContent className="p-0">
-                {affordableZones.map((zone, index) => (
-                  <button
-                    key={zone.district}
-                    onClick={() => navigate(`/search?district=${zone.district}`)}
-                    className="w-full flex items-center justify-between p-4 hover:bg-gray-50 transition-colors border-b last:border-b-0"
-                  >
-                    <div className="flex items-center gap-3">
-                      <span className="w-8 h-8 rounded-full bg-green-100 text-green-600 flex items-center justify-center text-sm font-bold">
-                        {index + 1}
-                      </span>
-                      <div className="text-left">
-                        <p className="font-semibold">{zone.district}</p>
-                        <p className="text-xs text-gray-500">{zone.listings} imóveis disponíveis</p>
-                      </div>
-                    </div>
-                    <div className="text-right">
-                      <p className="font-bold text-green-700">{zone.avgPrice.toLocaleString('pt-AO')} Kz</p>
-                      <p className="text-xs text-gray-500">média/mês</p>
-                    </div>
-                  </button>
-                ))}
-              </CardContent>
-            </Card>
-          </div>
-
           <div className="text-center">
             <Button
               variant="outline"
@@ -296,7 +234,6 @@ export function Home() {
         </div>
       </section>
 
-      {/* Featured Properties */}
       <section className="py-20 bg-white">
         <div className="container mx-auto px-4">
           <div className="flex items-center justify-between mb-10">
@@ -319,11 +256,19 @@ export function Home() {
             </Button>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {featuredProperties.map((property) => (
-              <PropertyCard key={property.id} property={property} />
-            ))}
-          </div>
+          {loading ? (
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+              {[1, 2, 3].map(i => (
+                <div key={i} className="h-80 bg-gray-100 animate-pulse rounded-2xl" />
+              ))}
+            </div>
+          ) : (
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+              {featuredProperties.map((property: any) => (
+                <PropertyCard key={property.id} property={property} />
+              ))}
+            </div>
+          )}
 
           <div className="text-center mt-10 md:hidden">
             <Button
@@ -337,9 +282,8 @@ export function Home() {
         </div>
       </section>
 
-      {/* Trust Section */}
       <section className="py-20 bg-gradient-to-br from-blue-950 via-blue-900 to-green-800 text-white relative overflow-hidden">
-        <div className="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA2MCA2MCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48ZyBmaWxsPSJub25lIiBmaWxsLXJ1bGU9ImV2ZW5vZGQiPjxnIGZpbGw9IiNmZmYiIGZpbGwtb3BhY2l0eT0iMC4wMyI+PHBhdGggZD0iTTM2IDM0djZoLTFWMzRoMXptMCAxMHY2aC0xVjQ0aDF6bS0xMCAwdjZoLTFWMzRoMXptMCAxMHY2aC0xVjQ0aDF6bS0xMCAwdjZoLTFWMzRoMXptMCAxMHY2aC0xVjQ0aDF6Ii8+PC9nPjwvZz48L3N2Zz4=')] opacity-50" />
+        <div className="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjAiIGhlaWdodT0iNjAiIHZpZXdCb3g9IjAgMCA2MCA2MCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48ZyBmaWxsPSJub25lIiBmaWxsLXJ1bGU9ImV2ZW5vZGQiPjxnIGZpbGw9IiNmZmYiIGZpbGwtb3BhY2l0eT0iMC4wMyI+PHBhdGggZD0iTTM2IDM0djZoLTFWMzRoMXptMCAxMHY2aC0xVjQ0aDF6bS0xMCAwdjZoLTFWMzRoMXptMCAxMHY2aC0xVjQ0aDF6bS0xMCAwdjZoLTFWMzRoMXptMCAxMHY2aC0xVjQ0aDF6Ii8+PC9nPjwvZz48L3N2Zz4=')] opacity-50" />
         <div className="container mx-auto px-4 relative">
           <div className="text-center mb-14">
             <Badge className="mb-3 bg-white/10 text-white border-white/20">Segurança</Badge>
@@ -388,7 +332,6 @@ export function Home() {
         </div>
       </section>
 
-      {/* CTA Section */}
       <section className="py-20 bg-gradient-to-r from-green-700 to-emerald-600 text-white">
         <div className="container mx-auto px-4 text-center">
           <motion.div
@@ -425,7 +368,6 @@ export function Home() {
         </div>
       </section>
 
-      {/* Stats Section */}
       <section className="py-20 bg-gray-50">
         <div className="container mx-auto px-4">
           <div className="grid grid-cols-2 md:grid-cols-4 gap-8 text-center">

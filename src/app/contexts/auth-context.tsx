@@ -1,4 +1,5 @@
 import React, { createContext, useContext, useState, useEffect } from 'react';
+import { api } from '../lib/api';
 
 export type UserType = 'tenant' | 'landlord' | 'admin';
 
@@ -14,6 +15,8 @@ export interface User {
   biNumber?: string;
   biDocument?: string;
   propertyDocument?: string;
+  verificationScore?: number;
+  isVerified?: boolean;
 }
 
 interface AuthContextType {
@@ -35,31 +38,32 @@ const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
 export function AuthProvider({ children }: { children: React.ReactNode }) {
   const [user, setUser] = useState<User | null>(null);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    // Check localStorage for existing user
-    const storedUser = localStorage.getItem('kusambwila_user');
-    if (storedUser) {
-      setUser(JSON.parse(storedUser));
-    }
+    const checkAuth = async () => {
+      try {
+        const profile = await api.auth.getProfile();
+        setUser({
+          ...profile,
+          name: `${profile.firstName} ${profile.lastName}`,
+        });
+      } catch (err) {
+        localStorage.removeItem('kusambwila_token');
+      } finally {
+        setLoading(false);
+      }
+    };
+    checkAuth();
   }, []);
 
   const login = async (email: string, password: string, userType?: UserType) => {
-    // Simulate API call
-    await new Promise(resolve => setTimeout(resolve, 1000));
-    
-    const mockUser: User = {
-      id: '1',
-      name: 'João Silva',
-      firstName: 'João',
-      lastName: 'Silva',
-      email,
-      phone: '+244 923 456 789',
-      userType: userType || 'tenant',
-    };
-    
-    setUser(mockUser);
-    localStorage.setItem('kusambwila_user', JSON.stringify(mockUser));
+    const { user: userData, token } = await api.auth.login({ email, password, userType });
+    localStorage.setItem('kusambwila_token', token);
+    setUser({
+      ...userData,
+      name: `${userData.firstName} ${userData.lastName}`,
+    });
   };
 
   const register = async (
@@ -70,27 +74,24 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     phone: string,
     userType: UserType
   ) => {
-    // Simulate API call
-    await new Promise(resolve => setTimeout(resolve, 1000));
-    
-    const newUser: User = {
-      id: Date.now().toString(),
-      name: `${firstName} ${lastName}`,
-      firstName,
-      lastName,
-      email,
-      phone,
-      userType,
-    };
-    
-    setUser(newUser);
-    localStorage.setItem('kusambwila_user', JSON.stringify(newUser));
+    const { user: userData, token } = await api.auth.register({ 
+      firstName, lastName, email, password, phone, userType 
+    });
+    localStorage.setItem('kusambwila_token', token);
+    setUser({
+      ...userData,
+      name: `${userData.firstName} ${userData.lastName}`,
+    });
   };
 
   const logout = () => {
     setUser(null);
-    localStorage.removeItem('kusambwila_user');
+    localStorage.removeItem('kusambwila_token');
   };
+
+  if (loading) {
+    return <div className="min-h-screen flex items-center justify-center">Carregando...</div>;
+  }
 
   return (
     <AuthContext.Provider

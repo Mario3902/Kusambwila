@@ -40,11 +40,44 @@ app.get('/api/auth/profile', auth.authenticateToken, async (req, res) => {
   }
 });
 
+app.put('/api/auth/profile', auth.authenticateToken, async (req, res) => {
+  try {
+    const updatedProfile = await auth.updateUserProfile(req.user.id, req.body);
+    res.json(updatedProfile);
+  } catch (err) {
+    res.status(400).json({ error: err.message });
+  }
+});
+
 // --- PROPERTIES ROUTES ---
 app.get('/api/properties', async (req, res) => {
   try {
-    const [rows] = await pool.query('SELECT * FROM properties');
-    res.json(rows);
+    const [rows] = await pool.query(`
+      SELECT
+        p.*,
+        CONCAT(u.firstName, ' ', u.lastName) AS landlordName,
+        u.email AS landlordEmail,
+        dv.biStatus,
+        dv.propertyTitleStatus,
+        dv.verificationScore,
+        dv.isVerified
+      FROM properties p
+      LEFT JOIN users u ON p.landlordId = u.id
+      LEFT JOIN document_verifications dv ON u.id = dv.userId
+      ORDER BY p.createdAt DESC
+    `);
+
+    const enriched = rows.map((row) => ({
+      ...row,
+      verification: {
+        biStatus: row.biStatus || 'pending',
+        propertyTitleStatus: row.propertyTitleStatus || 'pending',
+        verificationScore: Number(row.verificationScore || 0),
+        isVerified: Boolean(row.isVerified || false)
+      }
+    }));
+
+    res.json(enriched);
   } catch (err) {
     res.status(500).json({ error: err.message });
   }
@@ -59,6 +92,51 @@ app.get('/api/properties/:id', async (req, res) => {
     const [verif] = await pool.query('SELECT * FROM document_verifications dv JOIN users u ON dv.userId = u.id WHERE u.id = (SELECT landlordId FROM properties WHERE id = ?)', [req.params.id]);
     
     res.json({ ...rows[0], images, verification: verif[0] });
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+});
+
+app.post('/api/properties/publish', auth.authenticateToken, auth.authorizeRole(['landlord', 'admin']), async (req, res) => {
+  try {
+    const {
+      title,
+      description,
+      price,
+      location,
+      district,
+      type,
+      bedrooms = 0,
+      bathrooms = 0,
+      area = null,
+      featured = false
+    } = req.body;
+
+    if (!title || !price || !location || !district || !type) {
+      return res.status(400).json({ error: 'Campos obrigatórios: title, price, location, district e type' });
+    }
+
+    const [result] = await pool.query(
+      `INSERT INTO properties
+       (title, description, price, location, district, type, bedrooms, bathrooms, area, featured, landlordId)
+       VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
+      [
+        title,
+        description || null,
+        Number(price),
+        location,
+        district,
+        type,
+        Number(bedrooms) || 0,
+        Number(bathrooms) || 0,
+        area !== null && area !== undefined && area !== '' ? Number(area) : null,
+        Boolean(featured),
+        req.user.id
+      ]
+    );
+
+    const [rows] = await pool.query('SELECT * FROM properties WHERE id = ?', [result.insertId]);
+    res.status(201).json(rows[0]);
   } catch (err) {
     res.status(500).json({ error: err.message });
   }
