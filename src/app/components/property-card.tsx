@@ -15,7 +15,8 @@ interface PropertyCardProps {
 
 export function PropertyCard({ property }: PropertyCardProps) {
   const [isFavorite, setIsFavorite] = useState(false);
-  const safeImages = Array.isArray((property as any).images) ? (property as any).images : [];
+  const rawImages = (property as any).images || [];
+  const safeImages = rawImages.map((img: any) => typeof img === 'string' ? img : img.url || img);
   const imageSrc =
     safeImages.length > 0 && safeImages[0]
       ? safeImages[0]

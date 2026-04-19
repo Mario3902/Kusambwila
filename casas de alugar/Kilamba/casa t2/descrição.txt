@@ -1,0 +1,20 @@
+🟦 PASSO 1 – INFORMAÇÕES BÁSICAS (infor.png)
+Campo	Valor
+
+Título do Anúncio	Apartamento T2+1 na Vila Flor (Kilamba) – Arrendamento
+
+Descrição	Imóvel T2+1 na Vila Flor, Kilamba, entrada da PEP, lado oposto do Kero Kilamba. Dispõe de 2 quartos normais, sala, cozinha, 1 WC de apoio. Condições: energia da rede, água, segurança, mosaicada, tecto falso. Localiza-se a 4 minutos do asfalto.
+
+Tipo de Imóvel	Apartamento
+
+Preço	80.000 Kz / 75.000 Kz (fixo, negociável)
+
+Tipo de transação	Arrendamento (pagamento semestral)
+🟦 PASSO 2 – DETALHES DO IMÓVEL (infor2.png)
+Campo	Valor
+Distrito	Kilamba
+Quartos	2 + 1 (T2+1)
+Casas de Banho	1
+Área (m²)	—
+Comodidades	Energia da rede, Água, Segurança, Mosaicada, Tecto falso
+Localização Completa	Vila Flor, lado oposto do Kero Kilamba, rua da PEP, 4 minutos do asfalto, Kilamba, Luanda

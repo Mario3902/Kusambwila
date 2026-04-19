@@ -1,0 +1,25 @@
+1. Informações Básicas (Passo 1)
+Título do Anúncio:
+Apartamento T1 Mobiliado - Talatona Bairro Militar
+Descrição:
+Arrenda-se Apartamento T1 mobiliado (residencial) no Talatona Bairro Militar.
+Imóvel completo e pronto a habitar, ideal para casal ou pessoa sozinha.
+Pagamento mensal fixo.
+Tipo de Imóvel:
+Apartamento
+Preço Mensal (Kz):
+500000
+
+2. Detalhes do Imóvel (Passo 2)
+Distrito:
+Talatona
+Localização Completa:
+Talatona Bairro Militar
+Quartos:
+1
+Casas de Banho:
+1
+Área (m²):
+(deixa em branco)
+Comodidades:
+Mobiliado, Residencial

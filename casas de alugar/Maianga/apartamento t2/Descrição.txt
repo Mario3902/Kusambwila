@@ -1,0 +1,24 @@
+1. Informações Básicas (Passo 1)
+Título do Anúncio:
+Apartamento T2 Climatizado com Electrobomba - Prenda/Maianga
+Descrição:
+Arrenda-se Apartamento T2 todo climatizado com electrobomba, localizado no 4º andar no Prenda/Maianga, na rua da Clínica Girassol.
+Imóvel em boa localização e pronto a habitar.
+Tipo de Imóvel:
+Apartamento
+Preço Mensal (Kz):50000 kz
+(deixa em branco por enquanto – o texto não indicou o preço)
+
+2. Detalhes do Imóvel (Passo 2)
+Distrito:
+Maianga / Prenda
+Localização Completa:
+Prenda/Maianga, Rua da Clínica Girassol, 4º andar
+Quartos:
+2
+Casas de Banho:
+1
+Área (m²):
+(deixa em branco)
+Comodidades:
+Climatizado, Electrobomba

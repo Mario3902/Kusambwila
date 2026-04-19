@@ -1,0 +1,25 @@
+Tipo: Restaurante / Espaço Comercial
+Localização: Entre Patriota e Benfica
+Transação: Arrendamento (Aluguer)
+Preço: 300.000 Kz/mês (bem negociável)
+
+🟦 PASSO 1 – INFORMAÇÕES BÁSICAS (infor.png)
+Campo	Valor
+
+Título do Anúncio	Restaurante Entre Patriota e Benfica – Arrendamento
+
+Descrição	Restaurante localizado entre o Patriota e o Benfica. Vias de acesso: entrada do Colégio Aurora Internacional na estrada direta do Patriota, ou na Casa da Bifana na via expressa. Sala para 100+ pessoas, 2 balcões de atendimento, parte do café com 6+ mesinhas, cozinha semi-industrial, 2 WC, despensa, parte exterior para mais mesas, água canalizada, energia da rede, AC's. Arrendado com equipamento disponível.
+
+Tipo de Imóvel	Restaurante / Espaço Comercial
+
+Preço Mensal	300.000 Kz (bem negociável)
+
+Tipo de transação	Arrendamento
+🟦 PASSO 2 – DETALHES DO IMÓVEL (infor2.png)
+Campo	Valor
+Distrito	Benfica / Patriota
+Quartos	— (espaço comercial)
+Casas de Banho	2
+Área (m²)	—
+Comodidades	Sala para 100+ pessoas, 2 balcões de atendimento, Café com 6+ mesinhas, Cozinha semi-industrial, Despensa, Parte exterior, Água canalizada, Energia da rede, AC's, Equipamento incluído
+Localização Completa	Entre Patriota e Benfica (entrada do Colégio Aurora Internacional ou Casa da Bifana na via expressa), Luanda

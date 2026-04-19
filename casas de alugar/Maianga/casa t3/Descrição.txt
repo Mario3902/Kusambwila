@@ -1,0 +1,33 @@
+PASSO 1 – INFORMAÇÕES BÁSICAS (infor.png)
+Campo	Valor
+
+Título do Anúncio	Apartamento T3 na Maianga
+
+Descrição	Apartamento T3 no Maianga, R/C. Dispõe de 1 suíte, 2 quartos, sala com dois ambientes, WC de apoio, dispensa e cozinha. Extras: piscina, garagem, água e energia. Devidamente documentado.
+Tipo de Imóvel	Apartamento
+Preço	1.ooo.ooo Kz
+Tipo de transação	Venda
+PASSO 2 – DETALHES DO IMÓVEL (infor2.png)
+Campo	Valor
+Distrito	Maianga
+Quartos	3
+Casas de Banho	2 (1 suíte + 1 WC apoio)
+Área (m²)	—
+Comodidades	Piscina, Garagem, Água, Energia, Dispensa, Sala com dois ambientes
+Localização Completa	Maianga, Luanda
+🟦 ANÚNCIO 2 – ALUGUER
+PASSO 1 – INFORMAÇÕES BÁSICAS (infor.png)
+Campo	Valor
+Título do Anúncio	Apartamento T3 no Maianga – Aluguer
+Descrição	Apartamento T3 no Maianga, R/C. Dispõe de 1 suíte, 2 quartos, sala com dois ambientes, WC de apoio, dispensa e cozinha. Extras: piscina, garagem, água e energia. Devidamente documentado.
+Tipo de Imóvel	Apartamento
+Preço Mensal	1.000.000 Kz /mês
+Tipo de transação	Aluguer
+PASSO 2 – DETALHES DO IMÓVEL (infor2.png)
+Campo	Valor
+Distrito	Maianga
+Quartos	3
+Casas de Banho	2
+Área (m²)	—
+Comodidades	Piscina, Garagem, Água, Energia, Dispensa, Sala com dois ambientes
+Localização Completa	Maianga, Luanda

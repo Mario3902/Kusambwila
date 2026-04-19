@@ -1,0 +1,25 @@
+Tipo: Casa
+Localização: Cacuaco (Bairro dos Pescadores)
+Transação: Arrendamento (Aluguer)
+Preço: 35.000 Kz/mês (negociável)
+
+🟦 PASSO 1 – INFORMAÇÕES BÁSICAS (infor.png)
+Campo	Valor
+
+Título do Anúncio	Casa T1 no Cacuaco (Bairro dos Pescadores) – Arrendamento
+
+Descrição	Casa T1 localizada no Cacuaco, Bairro dos Pescadores, dentro de condomínio. Dispõe de sala, cozinha e 1 quarto.
+
+Tipo de Imóvel	Casa
+
+Preço Mensal	35.000 Kz (negociável)
+
+Tipo de transação	Arrendamento
+🟦 PASSO 2 – DETALHES DO IMÓVEL (infor2.png)
+Campo	Valor
+Distrito	Cacuaco
+Quartos	1
+Casas de Banho	— (não informado)
+Área (m²)	—
+Comodidades	Dentro de condomínio, Sala, Cozinha
+Localização Completa	Cacuaco, Bairro dos Pescadores, Luanda

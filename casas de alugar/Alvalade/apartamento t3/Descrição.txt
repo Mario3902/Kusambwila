@@ -1,0 +1,25 @@
+Tipo: Apartamento
+Localização: Alvalade
+Transação: Arrendamento (Aluguer)
+Preço: 600.000 Kz/mês (negociável)
+
+🟦 PASSO 1 – INFORMAÇÕES BÁSICAS (infor.png)
+Campo	Valor
+
+Título do Anúncio	Apartamento T3 no Alvalade – Arrendamento
+
+Descrição	Apartamento T3 situado no Alvalade, residencial 3 em 1. Dispõe de 3 quartos (1 suíte), sala, cozinha equipada (sem geladeira), 1 WC de apoio. Climatizado, zona asfaltada, estacionamento para duas viaturas. Pagamento semestral.
+
+Tipo de Imóvel	Apartamento
+
+Preço Mensal	600.000 Kz (negociável)
+
+Tipo de transação	Arrendamento
+🟦 PASSO 2 – DETALHES DO IMÓVEL (infor2.png)
+Campo	Valor
+Distrito	Alvalade
+Quartos	3 (1 suíte)
+Casas de Banho	2 (1 suíte + 1 WC apoio)
+Área (m²)	—
+Comodidades	Climatizado, Zona asfaltada, Estacionamento para 2 viaturas, Cozinha equipada (sem geladeira)
+Localização Completa	Alvalade - residencial 3 em 1, Luanda

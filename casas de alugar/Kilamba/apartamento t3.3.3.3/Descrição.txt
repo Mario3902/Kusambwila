@@ -1,0 +1,21 @@
+🟦 PASSO 1 – INFORMAÇÕES BÁSICAS (infor.png)
+Campo	Valor
+
+Título do Anúncio	Apartamento T3 no Kilamba – Arrendamento
+
+Descrição	Apartamento para aluguer no Kilamba, no segundo andar. T3 com sala, dispensa, pequena varanda. Tudo limpo.
+
+Tipo de Imóvel	Apartamento
+
+Preço Mensal	— (não informado)
+
+Tipo de transação	Arrendamento
+
+🟦 PASSO 2 – DETALHES DO IMÓVEL (infor2.png)
+Campo	Valor
+Distrito	Kilamba
+Quartos	3
+Casas de Banho	— (não informado)
+Área (m²)	—
+Comodidades	Sala, Dispensa, Pequena varanda, Tudo limpo, 2º andar
+Localização Completa	Centralidade do Kilamba, 2º andar, Luanda 

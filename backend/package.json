@@ -10,7 +10,8 @@
     "dev:nodemon": "nodemon server.js",
     "db:setup": "node setup-db.js",
     "db:seed": "node seed.js",
-    "db:reset": "npm run db:setup && npm run db:seed"
+    "db:reset": "npm run db:setup && npm run db:seed",
+    "import:houses": "node import-houses.js"
   },
   "keywords": [],
   "author": "",

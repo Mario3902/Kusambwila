@@ -1,0 +1,24 @@
+🟦 PASSO 1 – INFORMAÇÕES BÁSICAS (infor.png)
+Campo	Valor
+
+Título do Anúncio	Apartamento T3+1 na Centralidade do Kilamba – Aluguer
+
+Descrição	Apartamento T3+1 na Centralidade do Kilamba. Dispõe de 3 quartos (incluindo 1 suíte), sala, cozinha, área de serviço/lavandaria, 1 casa de banho de apoio. Com ar condicionado, estacionamento privativo e segurança 24h/dia.
+
+Tipo de Imóvel	Apartamento
+
+Preço Mensal	— (não informado)
+
+Tipo de transação	Aluguer
+🟦 PASSO 2 – DETALHES DO IMÓVEL (infor2.png)
+Campo	Valor
+
+Distrito	Kilamba
+
+Quartos	3 + 1 (suíte)
+
+Casas de Banho	2 (1 suíte + 1 apoio)
+
+Área (m²)	—
+Comodidades	Ar condicionado, Estacionamento privativo, Segurança 24h, Sala, Cozinha, Área de serviço/lavandaria
+Localização Completa	Centralidade do Kilamba, Luanda

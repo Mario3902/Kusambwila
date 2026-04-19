@@ -1,0 +1,39 @@
+. Informações Básicas (Passo 1)
+Título do Anúncio:
+T1 com Sala Grande - Viana Sanzala
+
+Descrição:
+Arrenda-se T1 em Viana Sanzala.
+O imóvel possui uma sala grande, 1 quarto, 1 cozinha (compartimento) e 1 casa de banho (WC).
+
+Localização: Viana Sanzala, Luanda.
+
+Tipo de Imóvel:
+Casa / T1 (escolhe a opção mais próxima)
+
+Preço Mensal (Kz):
+30000
+
+2. Detalhes do Imóvel (Passo 2)
+Distrito:
+Viana
+Localização Completa:
+Viana Sanzala, Luanda
+Quartos:
+1
+Casas de Banho:
+1
+Área (m²):
+(deixa em branco ou coloca aproximado se souberes)
+Comodidades:
+Sala grande, Cozinha, WC
+
+Versão mais atrativa (recomendada):
+Título do Anúncio:
+T1 com Sala Grande - Viana Sanzala
+Descrição:
+T1 para arrendar em Viana Sanzala.
+Casa composta por sala grande, 1 quarto, 1 cozinha e 1 WC. Imóvel simples, limpo e em boa localização.
+Perfeito para quem procura algo prático e acessível em Viana.
+Tipo de Imóvel: Casa / T1
+Preço Mensal: 30.000 Kz

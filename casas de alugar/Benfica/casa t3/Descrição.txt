@@ -1,0 +1,25 @@
+Tipo: Casa
+Localização: Benfica (Mundial)
+Transação: Arrendamento (Aluguer)
+Preço: 40.000 Kz/mês
+
+🟦 PASSO 1 – INFORMAÇÕES BÁSICAS (infor.png)
+Campo	Valor
+
+Título do Anúncio	Casa T3 no Benfica Mundial – Arrendamento
+
+Descrição	Casa T3 localizada no Benfica Mundial. Disponível para arrendamento.
+
+Tipo de Imóvel	Casa
+
+Preço Mensal	40.000 Kz
+
+Tipo de transação	Arrendamento
+🟦 PASSO 2 – DETALHES DO IMÓVEL (infor2.png)
+Campo	Valor
+Distrito	Benfica
+Quartos	3
+Casas de Banho	— (não informado)
+Área (m²)	—
+Comodidades	— (não informado)
+Localização Completa	Benfica Mundial, Luanda

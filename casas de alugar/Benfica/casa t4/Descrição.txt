@@ -1,0 +1,24 @@
+Tipo: Vivenda/Casa
+Localização: Condomínio Vila do Kuditemo
+Transação: Venda
+
+🟦 PASSO 1 – INFORMAÇÕES BÁSICAS (infor.png)
+Campo	Valor
+
+Título do Anúncio	Vivenda V4 no Condomínio Vila do Kuditemo – Venda
+
+Descrição	Vivenda V4 no Condomínio Vila do Kuditemo. Imóvel virgem, nunca se viveu antes, em uma localização boa dentro do condomínio.
+
+Tipo de Imóvel	Vivenda / Casa
+
+Preço	— (não informado)
+
+Tipo de transação	Venda
+🟦 PASSO 2 – DETALHES DO IMÓVEL (infor2.png)
+Campo	Valor
+Distrito	— (não informado)
+Quartos	4
+Casas de Banho	— (não informado)
+Área (m²)	—
+Comodidades	Condomínio, Imóvel virgem, Localização boa no condomínio
+Localização Completa	Condomínio Vila do Kuditemo, Luanda 

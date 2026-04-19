@@ -322,18 +322,30 @@ app.get("/api/properties", async (req, res) => {
       ORDER BY p.createdAt DESC
     `);
 
-    const enriched = rows.map((row) => ({
-      ...row,
-      verification: {
-        biStatus: row.biStatus || "pending",
-        propertyTitleStatus: row.propertyTitleStatus || "pending",
-        verificationScore: Number(row.verificationScore || 0),
-        isVerified: Boolean(row.isVerified || false),
-      },
-    }));
+    const [allImages] = await pool.query("SELECT * FROM property_images");
+    
+    const propertiesWithImages = rows.map(row => {
+      const propertyImages = allImages.filter(img => img.propertyId === row.id);
+      const finalObj = {
+        ...row,
+        images: propertyImages,
+        verification: {
+          biStatus: row.biStatus || "pending",
+          propertyTitleStatus: row.propertyTitleStatus || "pending",
+          verificationScore: Number(row.verificationScore || 0),
+          isVerified: Boolean(row.isVerified || false),
+        },
+      };
+      return finalObj;
+    });
 
-    res.json(enriched);
+    const result = propertiesWithImages;
+    if (result.length > 0) {
+      result[0].DEBUG_TEST = "THIS_IS_A_TEST";
+    }
+    res.json(result);
   } catch (err) {
+    console.error("Error:", err);
     res.status(500).json({ error: err.message });
   }
 });

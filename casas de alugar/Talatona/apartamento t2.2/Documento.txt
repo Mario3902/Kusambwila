@@ -1,0 +1,25 @@
+Título do Anúncio:
+Apartamento T2 na Avenida Brasil - Prédio Vitecnica, Talatona
+Descrição:
+Arrenda-se Apartamento T2 no Prédio Vitecnica, localizado na Avenida Brasil, Talatona (3º andar).
+O imóvel possui 2 quartos, sendo ideal para casal ou família pequena.
+Está situado numa zona central, próximo a comércios, serviços e vias principais.
+Documentação completa e regularizada, pronto para entrar imediatamente.
+Tipo de Imóvel:
+Apartamento
+Preço Mensal (Kz):
+400000
+
+2. Detalhes do Imóvel (Passo 2)
+Distrito:
+Talatona
+Localização Completa:
+Avenida Brasil, Prédio Vitecnica, 3º andar, Talatona
+Quartos:
+2
+Casas de Banho:
+1
+Área (m²):
+(deixa em branco)
+Comodidades:
+Localização privilegiada, Prédio Vitecnica, Zona central, Próximo a comércios e serviços 

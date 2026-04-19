@@ -1,0 +1,25 @@
+Tipo: Apartamento/Casa
+Localização: Ingombotas
+Transação: Arrendamento
+
+🟦 PASSO 1 – INFORMAÇÕES BÁSICAS (infor.png)
+
+Campo	Valor
+
+Título do Anúncio	Apartamento T2 nas Ingombotas – Arrendamento
+
+Descrição	Apartamento T2 nas Ingombotas, nas mediações do Banco BAI. Dispõe de 2 quartos, 1 sala, 1 cozinha, 1 WC interior. Quintal privativo com acesso para viatura. Teto falso em toda casa. Água e luz 24/24.
+
+Tipo de Imóvel	Apartamento
+
+Preço Mensal	35.000 Kz (fixo)
+
+Tipo de transação	Arrendamento
+🟦 PASSO 2 – DETALHES DO IMÓVEL (infor2.png)
+Campo	Valor
+Distrito	Ingombotas
+Quartos	2
+Casas de Banho	1
+Área (m²)	—
+Comodidades	Teto falso (casa toda), Água 24/24, Luz 24/24, Quintal privativo, Acesso para viatura, Quintal sozinho
+Localização Completa	Ingombotas, nas mediações do Banco BAI, Luanda

@@ -1,0 +1,23 @@
+Tipo: Casa
+Localização: Ingombotas
+Transação: Arrendamento
+
+🟦 PASSO 1 – INFORMAÇÕES BÁSICAS (infor.png)
+Campo	Valor
+
+Título do Anúncio	Casa T3+Escritório nas Ingombotas – Arrendamento
+
+Descrição	Casa T3 nas Ingombotas, em frente ao Cine Luanda. Dispõe de 3 quartos (1 suíte), 1 sala, cozinha, escritório, 2 WC de apoio, marquise. Quintal com capacidade para 5 viaturas. Água e luz da rede pública.
+Tipo de Imóvel	Casa
+
+Preço Mensal	— (não informado)
+
+Tipo de transação	Arrendamento
+🟦 PASSO 2 – DETALHES DO IMÓVEL (infor2.png)
+Campo	Valor
+Distrito	Ingombotas
+Quartos	3 (1 suíte)
+Casas de Banho	3 (1 suíte + 2 WC apoio)
+Área (m²)	—
+Comodidades	Escritório, Marquise, Quintal (5 viaturas), Água rede pública, Luz rede pública
+Localização Completa	Ingombotas, em frente ao Cine Luanda, Luanda

@@ -1,0 +1,21 @@
+🟦 PASSO 1 – INFORMAÇÕES BÁSICAS (infor.png)
+Campo	Valor
+
+Título do Anúncio	Espaço Comercial na Maianga – Arrendamento
+
+Descrição	Espaço comercial localizado na Maianga, Rua António Barroso, em frente ao Hotel Flamingo. Serve para vários fins. Prestação de serviços: 5.000 Kz.
+
+Tipo de Imóvel	Espaço Comercial
+
+Preço Mensal	200.000 Kz (negociável)
+
+Tipo de transação	Arrendamento
+
+🟦 PASSO 2 – DETALHES DO IMÓVEL (infor2.png)
+Campo	Valor
+Distrito	Maianga
+Quartos	— (espaço comercial)
+Casas de Banho	—
+Área (m²)	—
+Comodidades	Localização central, Frente ao Hotel Flamingo
+Localização Completa	Rua António Barroso, em frente ao Hotel Flamingo, Maianga, Luanda

@@ -1,0 +1,24 @@
+🟦 PASSO 1 – INFORMAÇÕES BÁSICAS
+(conforme infor.png)
+
+Campo	Valor
+
+Título do Anúncio	Apartamento T2 no Maianga – Aluguer
+
+Descrição	Apartamento T2 no Maianga disponível para aluguer. Possui 2 quartos, 1 casa de banho, varanda, dispensa. Fica no 2º andar. Tem energia da rede, água e reservatório de água. Documentação completa. Localização: B. Maianga, lado oposto à Faculdade de Engenharia Agostinho Neto.
+
+Tipo de Imóvel	Apartamento
+
+Preço Mensal (Kz)	100 000 Kz
+Tipo de transação	Aluguer
+
+🟦 PASSO 2 – DETALHES DO IMÓVEL
+(conforme infor2.png)
+
+Campo	Valor
+Distrito	Maianga
+Quartos	2
+Casas de Banho	1
+Área (m²)	(não informado – deixar em branco ou estimar ~70 m²)
+Comodidades	Varanda, Dispensa, Reservatório de água, Energia da rede, Água da rede
+Localização Completa	B. Maianga, lado oposto à Faculdade de Engenharia Agostinho Neto, Luanda

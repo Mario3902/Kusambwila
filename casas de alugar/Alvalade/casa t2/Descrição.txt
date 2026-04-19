@@ -1,0 +1,24 @@
+Tipo: Moradia
+Localização: Alvalade (imediações do Big On / Rua do Hotel Calandula)
+Transação: Arrendamento (Aluguer)
+Preço: 300.000 Kz/mês (negociável até 250.000 Kz)
+
+🟦 PASSO 1 – INFORMAÇÕES BÁSICAS (infor.png)
+Campo	Valor
+Título do Anúncio	Moradia T2 no Alvalade – Arrendamento
+
+Descrição	Moradia T2 no Alvalade, nas imediações do Big On, na Rua do Hotel Calandula. Dispõe de 2 quartos, 1 sala, cozinha em balcão, 1 WC social. Energia e água da rede pública 24h. Taxa de serviço: 5.000 Kz.
+
+Tipo de Imóvel	Moradia
+
+Preço Mensal	300.000 Kz (negociável até 250.000 Kz)
+
+Tipo de transação	Arrendamento
+🟦 PASSO 2 – DETALHES DO IMÓVEL (infor2.png)
+Campo	Valor
+Distrito	Alvalade
+Quartos	2
+Casas de Banho	1
+Área (m²)	—
+Comodidades	Cozinha em balcão, Energia rede pública 24h, Água rede pública 24h
+Localização Completa	Alvalade, imediações do Big On, Rua do Hotel Calandula, Luanda

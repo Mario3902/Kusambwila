@@ -1,0 +1,24 @@
+Tipo: Apartamento
+Localização: Ingombotas (Kinaxixi)
+Transação: Arrendamento
+
+🟦 PASSO 1 – INFORMAÇÕES BÁSICAS (infor.png)
+Campo	Valor
+
+Título do Anúncio	Apartamento T1 no Kinaxixi (Ingombotas) – Arrendamento
+
+Descrição	Apartamento T1 nas Ingombotas, zona do Kinaxixi, 4º andar. Dispõe de 1 quarto confortável, 1 sala espaçosa, cozinha montada, 1 casa de banho, tanque de água e espaço para gerador. Localização central com fácil acesso a transportes, supermercados e outros serviços.
+
+Tipo de Imóvel	Apartamento
+
+Preço Mensal	350.000 Kz/mês (negociável)
+
+Tipo de transação	Arrendamento
+🟦 PASSO 2 – DETALHES DO IMÓVEL (infor2.png)
+Campo	Valor
+Distrito	Ingombotas
+Quartos	1
+Casas de Banho	1
+Área (m²)	—
+Comodidades	Tanque de água, Espaço para gerador, Cozinha montada, Localização central
+Localização Completa	Kinaxixi, Ingombotas, Luanda

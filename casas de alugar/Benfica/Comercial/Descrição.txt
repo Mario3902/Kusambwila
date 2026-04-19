@@ -1,0 +1,23 @@
+Tipo: Espaço Misto (Moradia + Restaurante)
+Localização: Benfica Patriota, Bairro Honga
+Transação: Arrendamento (Aluguer)
+Preço: 700.000 Kz/mês (negociável)
+
+🟦 PASSO 1 – INFORMAÇÕES BÁSICAS (infor.png)
+Campo	Valor
+
+Título do Anúncio	Espaço Misto – Moradia + Restaurante no Benfica Patriota – Arrendamento
+
+Descrição	Espaço misto completo para viver e empreender no mesmo local. Moradia com marquise, cozinha equipada, sala de jantar, sala de visitas, 1 quarto simples, 1 quarto suíte, videovigilância (16 câmaras), gerador próprio, água/luz rede pública, Zap Fibra, quintal para 10 viaturas V8. Restaurante com sala para 150 pessoas, cozinha ampla com 3 balcões, 2 WC, 2 salas VIP, copa, sistema de vigilância. Totalmente mobiliado.
+Tipo de Imóvel	Espaço Comercial / Moradia
+
+Preço Mensal	700.000 Kz (negociável)
+Tipo de transação	Arrendamento
+🟦 PASSO 2 – DETALHES DO IMÓVEL (infor2.png)
+Campo	Valor
+Distrito	Benfica
+Quartos	2 (1 simples + 1 suíte)
+Casas de Banho	3 (1 na moradia + 2 no restaurante)
+Área (m²)	—
+Comodidades	Marquise, Cozinha equipada, Sala de jantar, Sala de visitas, Videovigilância (16 câmaras), Gerador próprio, Água rede pública, Luz rede pública, Zap Fibra, Quintal para 10 viaturas V8, Restaurante (150 lugares), Cozinha ampla com 3 balcões, 2 salas VIP, Copa, Sistema de vigilância, Totalmente mobiliado
+Localização Completa	Benfica Patriota, Bairro Honga, Luanda

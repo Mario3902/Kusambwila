@@ -1,0 +1,25 @@
+ Tipo: Casa
+Localização: Maye Maye
+Transação: Arrendamento (Aluguer)
+Preço: 100.000 Kz/mês
+
+🟦 PASSO 1 – INFORMAÇÕES BÁSICAS (infor.png)
+Campo	Valor
+
+Título do Anúncio	Casa T2 no Maye Maye – Arrendamento
+
+Descrição	Casa T2 disponível para arrendamento no bairro Maye Maye. Dispõe de 2 quartos, sala, cozinha e quintal. Documentação em dia. Ótima oportunidade para quem procura um imóvel acessível e bem localizado.
+
+Tipo de Imóvel	Casa
+
+Preço Mensal	100.000 Kz /mês
+
+Tipo de transação	Arrendamento
+🟦 PASSO 2 – DETALHES DO IMÓVEL (infor2.png)
+Campo	Valor
+Distrito	Maye Maye
+Quartos	2
+Casas de Banho	— (não informado)
+Área (m²)	—
+Comodidades	Quintal, Documentação em dia
+Localização Completa	Bairro Maye Maye, Luanda

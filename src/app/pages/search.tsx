@@ -1,7 +1,7 @@
-import { useState, useMemo } from 'react';
+import { useState, useMemo, useEffect } from 'react';
 import { motion } from 'motion/react';
 import { useSearchParams } from 'react-router';
-import { Search as SearchIcon, SlidersHorizontal, Grid, List, MapPin } from 'lucide-react';
+import { Search as SearchIcon, SlidersHorizontal, Grid, List, MapPin, Loader2 } from 'lucide-react';
 import { Button } from '../components/ui/button';
 import { Input } from '../components/ui/input';
 import { Label } from '../components/ui/label';
@@ -9,8 +9,32 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '.
 import { Slider } from '../components/ui/slider';
 import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from '../components/ui/sheet';
 import { PropertyCard } from '../components/property-card';
-import { mockProperties, districts, propertyTypes } from '../lib/mock-data';
+import { districts, propertyTypes } from '../lib/mock-data';
 import { Badge } from '../components/ui/badge';
+import { api } from '../lib/api';
+
+interface ApiProperty {
+  id: number;
+  title: string;
+  description: string;
+  price: number;
+  location: string;
+  district: string;
+  type: string;
+  bedrooms: number;
+  bathrooms: number;
+  area: number;
+  featured: number;
+  images?: { url: string; isPrimary: number }[];
+  landlordId: number;
+  landlordName?: string;
+  verification?: {
+    isVerified: boolean;
+    verificationScore: number;
+    biStatus: string;
+    propertyTitleStatus: string;
+  };
+}
 
 export function Search() {
   const [searchParams, setSearchParams] = useSearchParams();
@@ -21,9 +45,29 @@ export function Search() {
   const [priceRange, setPriceRange] = useState([0, 1000000]);
   const [bedrooms, setBedrooms] = useState('all');
   const [sortBy, setSortBy] = useState('date');
+  const [properties, setProperties] = useState<ApiProperty[]>([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const fetchProperties = async () => {
+      try {
+        const data = await api.properties.getAll();
+        setProperties(data);
+      } catch (error) {
+        console.error('Error fetching properties:', error);
+      } finally {
+        setLoading(false);
+      }
+    };
+    fetchProperties();
+  }, []);
 
   const filteredProperties = useMemo(() => {
-    let filtered = mockProperties;
+    let filtered = properties.map(p => ({
+      ...p,
+      createdAt: new Date(p.createdAt || Date.now()),
+      images: p.images?.map(i => i.url) || []
+    }));
 
     // Filter by search term
     if (searchTerm) {
@@ -69,7 +113,7 @@ export function Search() {
     }
 
     return filtered;
-  }, [searchTerm, selectedType, selectedDistrict, priceRange, bedrooms, sortBy]);
+  }, [properties, searchTerm, selectedType, selectedDistrict, priceRange, bedrooms, sortBy]);
 
   const clearFilters = () => {
     setSearchTerm('');

@@ -1,0 +1,26 @@
+Tipo: Casa
+Localização: Alvalade (atrás da Igreja Universal)
+Transação: Arrendamento (Aluguer)
+Preço: 60.000 Kz/mês
+Sem taxas adicionais
+
+🟦 PASSO 1 – INFORMAÇÕES BÁSICAS (infor.png)
+Campo	Valor
+
+Título do Anúncio	Casa T2 no Alvalade – Arrendamento
+
+Descrição	Casa T2 no Alvalade, atrás da Igreja Universal. Dispõe de 2 quartos normais, sala vasta, cozinha, 1 WC de apoio, quintal com alpendre comum. Casa ladrilhada, teto falso, energia pós-paga, cobertura de TV Cabo, água da rede pública, boa zona, rua asfaltada.
+
+Tipo de Imóvel	Casa
+
+Preço Mensal	60.000 Kz
+
+Tipo de transação	Arrendamento
+🟦 PASSO 2 – DETALHES DO IMÓVEL (infor2.png)
+Campo	Valor
+Distrito	Alvalade
+Quartos	2
+Casas de Banho	1
+Área (m²)	—
+Comodidades	Ladrilhada, Teto falso, Energia pós-paga, TV Cabo, Água rede pública, Rua asfaltada, Quintal com alpendre comum
+Localização Completa	Alvalade, atrás da Igreja Universal, Luanda

@@ -1,0 +1,32 @@
+1. Informações Básicas (Passo 1)
+Título do Anúncio:
+Apartamento T2 no Talatona - Edifício Mix Center
+
+Descrição:
+Arrenda-se Apartamento T2 no Talatona, localizado no Edifício Mix Center.
+O imóvel é composto por:
+• 1 Sala
+• 1 Cozinha
+• 1 Casa de banho
+• 2 Quartos
+Apartamento bem localizado no coração do Talatona.
+
+Tipo de Imóvel:
+Apartamento
+
+Preço Mensal (Kz):
+1700000
+
+2. Detalhes do Imóvel (Passo 2)
+Distrito:
+Talatona
+Localização Completa:
+Talatona - Edifício Mix Center
+Quartos:
+2
+Casas de Banho:
+1
+Área (m²):
+(deixa em branco ou coloca o valor se souberes)
+Comodidades:
+Sala, Cozinha, Casa de banho

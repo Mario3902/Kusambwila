@@ -1,0 +1,25 @@
+Tipo: Apartamento
+Localização: Ingombotas
+Transação: Arrendamento
+
+🟦 PASSO 1 – INFORMAÇÕES BÁSICAS (infor.png)
+
+Campo	Valor
+
+Título do Anúncio	Apartamento T2 nas Ingombotas – Arrendamento
+
+Descrição	Apartamento T2 nas Ingombotas. Casa toda ladrilhada, com água e luz disponíveis, pequeno quintal. Dispõe de 2 quartos, 1 sala, 1 cozinha e 1 WC.
+
+Tipo de Imóvel	Apartamento
+
+Preço Mensal	70.000 Kz
+
+Tipo de transação	Arrendamento
+🟦 PASSO 2 – DETALHES DO IMÓVEL (infor2.png)
+Campo	Valor
+Distrito	Ingombotas
+Quartos	2
+Casas de Banho	1
+Área (m²)	—
+Comodidades	Casa toda ladrilhada, Água disponível, Luz disponível, Pequeno quintal
+Localização Completa	Ingombotas, Luanda

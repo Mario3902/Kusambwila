@@ -1,0 +1,21 @@
+🟦 PASSO 1 – INFORMAÇÕES BÁSICAS (infor.png)
+Campo	Valor
+
+Título do Anúncio	Apartamento T3 na Centralidade do Kilamba – Arrendamento
+
+Descrição	Apartamento T3 na Centralidade do Kilamba, Quarteirão D, 2º andar. Casa limpa e climatizada. Cozinha normal e limpa.
+
+Tipo de Imóvel	Apartamento
+
+Preço	250.000 Kz (pagamento anual)
+
+Tipo de transação	Arrendamento
+
+🟦 PASSO 2 – DETALHES DO IMÓVEL (infor2.png)
+Campo	Valor
+Distrito	Kilamba
+Quartos	3
+Casas de Banho	— (não informado)
+Área (m²)	—
+Comodidades	Climatização, Casa limpa, Cozinha normal
+Localização Completa	Centralidade do Kilamba, Quarteirão D, 2º andar, Luanda

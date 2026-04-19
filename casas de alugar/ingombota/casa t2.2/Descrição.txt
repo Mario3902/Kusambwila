@@ -1,0 +1,24 @@
+Tipo: Casa/Apartamento
+Localização: Ingombotas
+Transação: Arrendamento
+
+🟦 PASSO 1 – INFORMAÇÕES BÁSICAS (infor.png)
+Campo	Valor
+
+Título do Anúncio	Casa T2 nas Ingombotas – Arrendamento
+
+Descrição	Casa T2 nas Ingombotas. Dispõe de 2 quartos (1 suíte), 1 sala, 1 cozinha, 2 WC. Detalhes externos: água corrente, tanque de água, luz, quintal fechado com alpendre e pavimentada. Cabe 2 viaturas. Zona com internet e segurança.
+
+Tipo de Imóvel	Casa
+
+Preço	50.000 Kz (negociável)
+
+Tipo de transação	Arrendamento (pagamento semestral ou anual)
+🟦 PASSO 2 – DETALHES DO IMÓVEL (infor2.png)
+Campo	Valor
+Distrito	Ingombotas
+Quartos	2 (1 suíte)
+Casas de Banho	2
+Área (m²)	—
+Comodidades	Água corrente, Tanque de água, Luz, Quintal fechado com alpendre, Pavimentada, Estacionamento para 2 viaturas, Internet, Segurança
+Localização Completa	Ingombotas, Luanda

@@ -1,0 +1,26 @@
+Tipo: Vivenda
+Localização: Alvalade
+Transação: Arrendamento (Aluguer)
+Preço: 2.000.000 Kz/mês (negociável até 1.600.000 - 1.700.000 Kz)
+
+🟦 PASSO 1 – INFORMAÇÕES BÁSICAS (infor.png)
+Campo	Valor
+
+Título do Anúncio	Vivenda T4 no Alvalade – Arrendamento
+
+Descrição	Vivenda T4 no Alvalade. Casa toda climatizada, pronta a entrar. Dispõe de 3 cozinhas montadas (uma no quintal, duas dentro de casa), 3 WC, lavandaria, terraço enorme para ginástica e eventos. Parte de baixo com quintal para 5 viaturas. Disponível com ou sem mobília (mesmo preço).
+
+Tipo de Imóvel	casa
+
+Preço Mensal	2.000.000 Kz (negociável até 1.600.000 - 1.700.000 Kz)
+
+Tipo de transação	Arrendamento
+🟦 PASSO 2 – DETALHES DO IMÓVEL (infor2.png)
+Campo	Valor
+Distrito	Alvalade
+Quartos	4
+Casas de Banho	3
+Área (m²)	—
+Comodidades	Toda climatizada, 3 cozinhas montadas, Lavandaria, Terraço enorme (ginástica/eventos), Quintal para 5 viaturas, Disponível com ou sem mobília
+Localização Completa	Alvalade, Luanda
+

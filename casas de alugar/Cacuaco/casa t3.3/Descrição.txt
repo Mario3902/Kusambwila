@@ -1,0 +1,24 @@
+Tipo: Casa
+Localização: Cacuaco (Vila/Bairro dos Pescadores)
+Transação: Arrendamento (Aluguer)
+Preço: 80.000 Kz/mês (negociável)
+
+🟦 PASSO 1 – INFORMAÇÕES BÁSICAS (infor.png)
+Campo	Valor
+Título do Anúncio	Casa T3 no Cacuaco (Bairro dos Pescadores) – Arrendamento
+
+Descrição	Casa T3 localizada no Cacuaco, Vila/Bairro dos Pescadores. Dispõe de sala, cozinha, WC, quintal sozinho, tanque de água. Passa água na torneira.
+
+Tipo de Imóvel	Casa
+
+Preço Mensal	80.000 Kz (negociável)
+
+Tipo de transação	Arrendamento
+🟦 PASSO 2 – DETALHES DO IMÓVEL (infor2.png)
+Campo	Valor
+Distrito	Cacuaco
+Quartos	3
+Casas de Banho	1
+Área (m²)	—
+Comodidades	Sala, Cozinha, WC, Quintal sozinho, Tanque de água, Água corrente na torneira
+Localização Completa	Cacuaco, Vila/Bairro dos Pescadores, Luanda

@@ -1,0 +1,26 @@
+Tipo: Apartamento/Casa
+Localização: Prenda
+Transação: Arrendamento (Aluguer)
+Preço: 40.000 Kz/mês
+
+🟦 PASSO 1 – INFORMAÇÕES BÁSICAS (infor.png)
+Campo	Valor
+
+Título do Anúncio	Apartamento T1+1 na Prenda – Arrendamento
+
+Descrição	T1+1 na Prenda, depois do Instituto Simeone Mucune, rua da Capela. Dispõe de 1 quarto ladrilhado, 1 quarto pequeno, sala com chão liso, cozinha adaptada, WC ladrilhado. Tudo sozinho. Acesso à casa por um ligeiro corredor.
+
+Tipo de Imóvel	Apartamento
+
+Preço Mensal	40.000 Kz
+
+Tipo de transação	Arrendamento
+🟦 PASSO 2 – DETALHES DO IMÓVEL (infor2.png)
+Campo	Valor
+Distrito	Prenda
+Quartos	1 + 1 (T1+1)
+Casas de Banho	1
+Área (m²)	—
+Comodidades	Quarto ladrilhado, Sala chão liso, Cozinha adaptada, WC ladrilhado, Tudo sozinho, Acesso por corredor
+
+Localização Completa	Prenda, depois do Instituto Simeone Mucune, rua da Capela, Luanda

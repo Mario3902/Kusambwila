@@ -1,0 +1,25 @@
+Tipo: Moradia (Parte de Baixo)
+Localização: Alvalade, Bairro Militar (lado oposto ao CISP)
+Transação: Arrendamento (Aluguer)
+Preço: 1.200.000 Kz/mês (negociável)
+
+🟦 PASSO 1 – INFORMAÇÕES BÁSICAS (infor.png)
+Campo	Valor
+
+Título do Anúncio	Moradia T3 no Alvalade (Bairro Militar) – Arrendamento
+
+Descrição	Moradia T3 (parte de baixo) no Alvalade, Bairro Militar, lado oposto ao CISP. Dispõe de 3 quartos (2 suítes), 2 WC de apoio, sala normal, cozinha equipada, ar condicionados, energia elétrica, água da rede, tanque de água, Zap Fibra, TV Cabo, lavandaria, dispensa, churrasqueira, portão eletrónico, pequeno quintal traseiro, quintal frontal para 1 carro.
+
+Tipo de Imóvel	Moradia
+
+Preço Mensal	1.200.000 Kz (negociável)
+
+Tipo de transação	Arrendamento
+🟦 PASSO 2 – DETALHES DO IMÓVEL (infor2.png)
+Campo	Valor
+Distrito	Alvalade
+Quartos	3 (2 suítes)
+Casas de Banho	4 (2 suítes + 2 WC apoio)
+Área (m²)	—
+Comodidades	Ar condicionados, Energia elétrica, Água da rede, Tanque de água, Zap Fibra, TV Cabo, Lavandaria, Dispensa, Churrasqueira, Portão eletrónico, Pequeno quintal traseiro, Quintal frontal para 1 carro
+Localização Completa	Alvalade, Bairro Militar, lado oposto ao CISP, Luanda
