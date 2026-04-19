@@ -1,5 +1,5 @@
-const mysql = require('mysql2/promise');
-require('dotenv').config();
+const mysql = require("mysql2/promise");
+require("dotenv").config();
 
 const pool = mysql.createPool({
   host: process.env.DB_HOST,
@@ -8,14 +8,14 @@ const pool = mysql.createPool({
   database: process.env.DB_NAME,
   waitForConnections: true,
   connectionLimit: 10,
-  queueLimit: 0
+  queueLimit: 0,
 });
 
 async function initializeDatabase() {
   const connection = await pool.getConnection();
   try {
-    console.log('Conectando ao MySQL para inicializar tabelas...');
-    
+    console.log("Conectando ao MySQL para inicializar tabelas...");
+
     // Tabela de usuários
     await connection.query(`
       CREATE TABLE IF NOT EXISTS users (
@@ -107,6 +107,29 @@ async function initializeDatabase() {
       )
     `);
 
+    // Tabela de documentos submetidos pelos proprietários
+    await connection.query(`
+      CREATE TABLE IF NOT EXISTS documents (
+        id INT AUTO_INCREMENT PRIMARY KEY,
+        userId INT NOT NULL,
+        documentType ENUM('bi', 'propertyTitle', 'addressProof') NOT NULL,
+        fileName VARCHAR(255) NOT NULL,
+        filePath VARCHAR(255) NOT NULL,
+        fileSize INT,
+        mimeType VARCHAR(100),
+        status ENUM('pending', 'verified', 'rejected') DEFAULT 'pending',
+        rejectionReason TEXT,
+        uploadedAt TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+        verifiedAt DATETIME,
+        verifiedBy INT,
+        adminNotes TEXT,
+        createdAt TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+        updatedAt TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+        FOREIGN KEY (userId) REFERENCES users(id) ON DELETE CASCADE,
+        FOREIGN KEY (verifiedBy) REFERENCES users(id) ON DELETE SET NULL
+      )
+    `);
+
     // Tabela de dados financeiros
     await connection.query(`
       CREATE TABLE IF NOT EXISTS property_financials (
@@ -167,9 +190,9 @@ async function initializeDatabase() {
       )
     `);
 
-    console.log('Banco de dados MySQL inicializado com sucesso.');
+    console.log("Banco de dados MySQL inicializado com sucesso.");
   } catch (err) {
-    console.error('Erro ao inicializar banco de dados:', err);
+    console.error("Erro ao inicializar banco de dados:", err);
   } finally {
     connection.release();
   }

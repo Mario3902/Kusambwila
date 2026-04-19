@@ -9,6 +9,7 @@ import { PublishProperty } from "./pages/publish-property";
 import { Dashboard } from "./pages/dashboard";
 import { Profile } from "./pages/profile";
 import { Chat } from "./pages/chat";
+import LandlordDocuments from "./pages/landlord-documents";
 import { NotFound } from "./pages/not-found";
 import { AdminLayout } from "./admin/components/AdminLayout";
 import { AdminDashboard } from "./admin/pages/AdminDashboard";
@@ -16,6 +17,7 @@ import { AdminProperties } from "./admin/pages/AdminProperties";
 import { AdminUsers } from "./admin/pages/AdminUsers";
 import { AdminFinance } from "./admin/pages/AdminFinance";
 import { AdminSettings } from "./admin/pages/AdminSettings";
+import AdminDocuments from "./admin/pages/documents";
 
 export const router = createBrowserRouter([
   {
@@ -31,6 +33,7 @@ export const router = createBrowserRouter([
       { path: "dashboard", Component: Dashboard },
       { path: "profile", Component: Profile },
       { path: "chat", Component: Chat },
+      { path: "documents", Component: LandlordDocuments },
       { path: "*", Component: NotFound },
     ],
   },
@@ -43,6 +46,7 @@ export const router = createBrowserRouter([
       { path: "users", Component: AdminUsers },
       { path: "finance", Component: AdminFinance },
       { path: "settings", Component: AdminSettings },
+      { path: "documents", Component: AdminDocuments },
     ],
   },
 ]);
