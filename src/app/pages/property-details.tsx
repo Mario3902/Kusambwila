@@ -15,7 +15,9 @@ import {
   Calendar,
   CheckCircle2,
   Loader2,
-  ArrowLeft
+  ArrowLeft,
+  Scan,
+  X
 } from 'lucide-react';
 import { Button } from '../components/ui/button';
 import { Badge } from '../components/ui/badge';
@@ -25,6 +27,7 @@ import { Separator } from '../components/ui/separator';
 import { api } from '../lib/api';
 import { toast } from 'sonner';
 import { VerificationBadge } from '../components/verification-badge';
+import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } from '../components/ui/dialog';
 
 export function PropertyDetails() {
   const { id } = useParams();
@@ -33,6 +36,7 @@ export function PropertyDetails() {
   const [loading, setLoading] = useState(true);
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
   const [isFavorite, setIsFavorite] = useState(false);
+  const [showAR, setShowAR] = useState(false);
 
   useEffect(() => {
     async function fetchProperty() {
@@ -163,6 +167,13 @@ export function PropertyDetails() {
             </div>
 
             <div className="absolute top-4 right-4 flex gap-2">
+              <button
+                onClick={() => setShowAR(true)}
+                className="w-10 h-10 rounded-full bg-blue-600/90 backdrop-blur flex items-center justify-center hover:bg-blue-600 transition-colors"
+                title="Ver em Realidade Aumentada"
+              >
+                <Scan className="w-5 h-5 text-white" />
+              </button>
               <button
                 onClick={handleShare}
                 className="w-10 h-10 rounded-full bg-white/90 backdrop-blur flex items-center justify-center hover:bg-white transition-colors"
@@ -397,6 +408,44 @@ export function PropertyDetails() {
           </div>
         </div>
       </div>
+
+      {/* AR Modal */}
+      <Dialog open={showAR} onOpenChange={setShowAR}>
+        <DialogContent className="max-w-4xl w-[95vw] h-[90vh] p-0">
+          <DialogHeader className="px-6 pt-6 pb-2">
+            <div className="flex items-center justify-between">
+              <div>
+                <DialogTitle className="flex items-center gap-2 text-xl">
+                  <Scan className="w-6 h-6 text-blue-600" />
+                  Realidade Aumentada
+                </DialogTitle>
+                <DialogDescription>
+                  Visualize o imóvel em RA - {property?.title}
+                </DialogDescription>
+              </div>
+              <Button
+                variant="ghost"
+                size="icon"
+                onClick={() => setShowAR(false)}
+                className="h-8 w-8"
+              >
+                <X className="w-4 h-4" />
+              </Button>
+            </div>
+          </DialogHeader>
+          <div className="flex-1 h-[calc(90vh-100px)] px-6 pb-6">
+            <iframe
+              src="https://mywebar.com/pi/896161"
+              frameBorder="0"
+              scrolling="yes"
+              seamless
+              style={{ display: 'block', width: '100%', height: '100%', borderRadius: '8px' }}
+              allow="camera;gyroscope;accelerometer;magnetometer;xr-spatial-tracking;microphone"
+              title={`RA - ${property?.title || 'Imóvel'}`}
+            />
+          </div>
+        </DialogContent>
+      </Dialog>
     </div>
   );
 }

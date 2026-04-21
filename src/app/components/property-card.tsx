@@ -1,6 +1,6 @@
 import { motion } from 'motion/react';
 import { Link } from 'react-router';
-import { MapPin, Bed, Bath, Maximize, Heart, Phone, ShieldCheck } from 'lucide-react';
+import { MapPin, Bed, Bath, Maximize, Heart, Phone, ShieldCheck, Scan, X } from 'lucide-react';
 import { Card, CardContent } from './ui/card';
 import { Button } from './ui/button';
 import { Badge } from './ui/badge';
@@ -8,6 +8,7 @@ import type { Property } from '../lib/mock-data';
 import { useState } from 'react';
 import { toast } from 'sonner';
 import { VerificationBadge } from './verification-badge';
+import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } from './ui/dialog';
 
 interface PropertyCardProps {
   property: Property;
@@ -15,6 +16,7 @@ interface PropertyCardProps {
 
 export function PropertyCard({ property }: PropertyCardProps) {
   const [isFavorite, setIsFavorite] = useState(false);
+  const [showAR, setShowAR] = useState(false);
   const rawImages = (property as any).images || [];
   const safeImages = rawImages.map((img: any) => typeof img === 'string' ? img : img.url || img);
   const imageSrc =
@@ -76,14 +78,26 @@ export function PropertyCard({ property }: PropertyCardProps) {
                 {zoneRankLabels[zoneRank]}
               </Badge>
             </div>
-            <button
-              onClick={handleFavorite}
-              className="absolute top-3 right-3 w-10 h-10 rounded-full bg-white/90 backdrop-blur flex items-center justify-center hover:bg-white transition-colors shadow-lg"
-            >
-              <Heart
-                className={`w-5 h-5 ${isFavorite ? 'fill-red-500 text-red-500' : 'text-gray-700'}`}
-              />
-            </button>
+            <div className="absolute top-3 right-3 flex flex-col gap-2">
+              <button
+                onClick={(e) => {
+                  e.preventDefault();
+                  setShowAR(true);
+                }}
+                className="w-10 h-10 rounded-full bg-blue-600/90 backdrop-blur flex items-center justify-center hover:bg-blue-600 transition-colors shadow-lg"
+                title="Ver em Realidade Aumentada"
+              >
+                <Scan className="w-5 h-5 text-white" />
+              </button>
+              <button
+                onClick={handleFavorite}
+                className="w-10 h-10 rounded-full bg-white/90 backdrop-blur flex items-center justify-center hover:bg-white transition-colors shadow-lg"
+              >
+                <Heart
+                  className={`w-5 h-5 ${isFavorite ? 'fill-red-500 text-red-500' : 'text-gray-700'}`}
+                />
+              </button>
+            </div>
             <div className="absolute bottom-3 left-3">
               <VerificationBadge
                 isVerified={verification.isVerified}
@@ -150,6 +164,44 @@ export function PropertyCard({ property }: PropertyCardProps) {
           </CardContent>
         </Card>
       </Link>
+
+      {/* AR Modal */}
+      <Dialog open={showAR} onOpenChange={setShowAR}>
+        <DialogContent className="max-w-4xl w-[95vw] h-[90vh] p-0">
+          <DialogHeader className="px-6 pt-6 pb-2">
+            <div className="flex items-center justify-between">
+              <div>
+                <DialogTitle className="flex items-center gap-2 text-xl">
+                  <Scan className="w-6 h-6 text-blue-600" />
+                  Realidade Aumentada
+                </DialogTitle>
+                <DialogDescription>
+                  Visualize o imóvel em RA - {property.title}
+                </DialogDescription>
+              </div>
+              <Button
+                variant="ghost"
+                size="icon"
+                onClick={() => setShowAR(false)}
+                className="h-8 w-8"
+              >
+                <X className="w-4 h-4" />
+              </Button>
+            </div>
+          </DialogHeader>
+          <div className="flex-1 h-[calc(90vh-100px)] px-6 pb-6">
+            <iframe
+              src="https://mywebar.com/pi/896161"
+              frameBorder="0"
+              scrolling="yes"
+              seamless
+              style={{ display: 'block', width: '100%', height: '100%', borderRadius: '8px' }}
+              allow="camera;gyroscope;accelerometer;magnetometer;xr-spatial-tracking;microphone"
+              title={`RA - ${property.title}`}
+            />
+          </div>
+        </DialogContent>
+      </Dialog>
     </motion.div>
   );
 }
