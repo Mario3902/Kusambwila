@@ -1,11 +1,11 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { motion } from 'motion/react';
 import { useNavigate } from 'react-router';
 import { 
   BarChart3, TrendingUp, TrendingDown, DollarSign, Users, Home, 
   FileText, Download, Calendar, ArrowUpRight, ArrowDownRight,
   Shield, ShieldCheck, AlertTriangle, CheckCircle, XCircle, Clock,
-  Building2, MapPin, Award, Star, LayoutDashboard
+  Building2, MapPin, Award, Star, LayoutDashboard, Loader2
 } from 'lucide-react';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '../components/ui/card';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '../components/ui/tabs';
@@ -13,54 +13,135 @@ import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '.
 import { Badge } from '../components/ui/badge';
 import { Button } from '../components/ui/button';
 import { useAuth } from '../contexts/auth-context';
-import { mockProperties, marketStats, financialReports, verificationChecks } from '../lib/mock-data';
+import { api } from '../lib/api';
+import { toast } from 'sonner';
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, LineChart, Line, PieChart, Pie, Cell, AreaChart, Area } from 'recharts';
 import { VerificationBadge } from '../components/verification-badge';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '../components/ui/select';
 
+interface DashboardStats {
+  totalUsers: number;
+  totalLandlords: number;
+  totalProperties: number;
+  pendingDocuments: number;
+  totalRevenue: number;
+  topLandlords: Array<{
+    firstName: string;
+    lastName: string;
+    total_revenue: number;
+  }>;
+}
+
 export function Dashboard() {
   const navigate = useNavigate();
   const { user, isAuthenticated } = useAuth();
+  const [loading, setLoading] = useState(true);
+  const [stats, setStats] = useState<DashboardStats | null>(null);
+  const [reportPeriod, setReportPeriod] = useState('monthly');
+
+  useEffect(() => {
+    async function loadStats() {
+      try {
+        const [adminStats, financials] = await Promise.all([
+          api.admin.getStats(),
+          api.admin.getFinancials()
+        ]);
+        setStats({
+          ...adminStats,
+          topLandlords: financials.topLandlords || []
+        });
+      } catch (err) {
+        console.error('Erro ao carregar stats:', err);
+        toast.error('Erro ao carregar estatísticas');
+      } finally {
+        setLoading(false);
+      }
+    }
+    
+    if (isAuthenticated && user?.userType === 'admin') {
+      loadStats();
+    }
+  }, [isAuthenticated, user]);
 
   if (!isAuthenticated || user?.userType !== 'admin') {
     navigate('/');
     return null;
   }
 
-  const [reportPeriod, setReportPeriod] = useState('monthly');
+  if (loading) {
+    return (
+      <div className="min-h-screen flex items-center justify-center">
+        <Loader2 className="w-8 h-8 animate-spin text-blue-900" />
+      </div>
+    );
+  }
 
-  const stats = [
+  const dashboardStats = [
     {
       title: 'Total de Utilizadores',
-      value: '3,247',
+      value: stats?.totalUsers?.toLocaleString('pt-AO') || '0',
       change: '+12.5%',
       icon: Users,
       color: 'blue',
     },
     {
       title: 'Imóveis Publicados',
-      value: '1,589',
+      value: stats?.totalProperties?.toLocaleString('pt-AO') || '0',
       change: '+8.2%',
       icon: Home,
       color: 'green',
     },
     {
       title: 'Receita Mensal',
-      value: `${(financialReports.platformRevenue.monthly / 1000000).toFixed(1)}M Kz`,
-      change: `+${financialReports.platformRevenue.growth}%`,
+      value: `${((stats?.totalRevenue || 0) / 1000000).toFixed(1)}M Kz`,
+      change: '+15.3%',
       icon: DollarSign,
       color: 'purple',
     },
     {
       title: 'Taxa de Conversão',
-      value: '68%',
+      value: '84%',
       change: '+5.1%',
       icon: TrendingUp,
       color: 'orange',
     },
   ];
 
-  const zoneRankColors = {
+  const pieData = [
+    { name: 'Verificados', value: 65, color: '#22c55e' },
+    { name: 'Pendentes', value: 25, color: '#eab308' },
+    { name: 'Rejeitados', value: 10, color: '#ef4444' },
+  ];
+
+  // Dados de exemplo para gráficos e tabelas
+  const monthlyData = [
+    { month: 'Jan', revenue: 1200000, expenses: 800000, profit: 400000 },
+    { month: 'Fev', revenue: 1500000, expenses: 900000, profit: 600000 },
+    { month: 'Mar', revenue: 1800000, expenses: 1000000, profit: 800000 },
+    { month: 'Abr', revenue: 1700000, expenses: 950000, profit: 750000 },
+    { month: 'Mai', revenue: 2100000, expenses: 1100000, profit: 1000000 },
+    { month: 'Jun', revenue: 2400000, expenses: 1200000, profit: 1200000 },
+  ];
+
+  const verifiedCount = 156;
+  const pendingCount = 45;
+  const rejectedCount = 12;
+
+  const topLandlords = stats?.topLandlords || [
+    { firstName: 'João', lastName: 'Silva', total_revenue: 2500000 },
+    { firstName: 'Maria', lastName: 'Santos', total_revenue: 1800000 },
+    { firstName: 'Pedro', lastName: 'Oliveira', total_revenue: 1200000 },
+  ];
+
+  const marketZones = [
+    { district: 'Talatona', avgPrice: 450000, zoneRank: 'premium', pricePerSqm: 3500, listings: 45 },
+    { district: 'Luanda Sul', avgPrice: 380000, zoneRank: 'high', pricePerSqm: 3200, listings: 67 },
+    { district: 'Cidade Alta', avgPrice: 280000, zoneRank: 'medium', pricePerSqm: 2500, listings: 89 },
+    { district: 'Benfica', avgPrice: 220000, zoneRank: 'medium', pricePerSqm: 2000, listings: 120 },
+    { district: 'Kilamba', avgPrice: 180000, zoneRank: 'low', pricePerSqm: 1800, listings: 156 },
+  ];
+
+  const zoneRankColors: Record<string, string> = {
     premium: 'bg-purple-100 text-purple-700 border-purple-200',
     high: 'bg-blue-100 text-blue-700 border-blue-200',
     medium: 'bg-yellow-100 text-yellow-700 border-yellow-200',
@@ -68,7 +149,7 @@ export function Dashboard() {
     affordable: 'bg-green-100 text-green-700 border-green-200',
   };
 
-  const zoneRankLabels = {
+  const zoneRankLabels: Record<string, string> = {
     premium: 'Premium',
     high: 'Alto',
     medium: 'Médio',
@@ -76,24 +157,47 @@ export function Dashboard() {
     affordable: 'Acessível',
   };
 
-  const sortedByPrice = [...marketStats].sort((a, b) => b.avgPrice - a.avgPrice);
+  const sortedByPrice = [...marketZones].sort((a, b) => b.avgPrice - a.avgPrice);
   const mostExpensive = sortedByPrice.slice(0, 5);
   const cheapest = [...sortedByPrice].reverse().slice(0, 5);
 
-  const verifiedCount = mockProperties.filter(p => p.verification.isVerified).length;
-  const pendingCount = mockProperties.filter(p => !p.verification.isVerified && (p.verification.biStatus === 'pending' || p.verification.propertyTitleStatus === 'pending')).length;
-  const rejectedCount = mockProperties.filter(p => p.verification.biStatus === 'rejected' || p.verification.propertyTitleStatus === 'rejected').length;
-
-  const pieData = [
-    { name: 'Verificados', value: verifiedCount, color: '#22c55e' },
-    { name: 'Pendentes', value: pendingCount, color: '#eab308' },
-    { name: 'Rejeitados', value: rejectedCount, color: '#ef4444' },
+  const mockProperties = [
+    { id: 1, title: 'Apartamento Luxo Talatona', landlordName: 'João Silva', verification: { isVerified: true, biStatus: 'verified', propertyTitleStatus: 'verified', verificationScore: 95 } },
+    { id: 2, title: 'Casa Benfica', landlordName: 'Maria Santos', verification: { isVerified: true, biStatus: 'verified', propertyTitleStatus: 'verified', verificationScore: 88 } },
+    { id: 3, title: 'Studio Cidade Alta', landlordName: 'Pedro Oliveira', verification: { isVerified: false, biStatus: 'pending', propertyTitleStatus: 'pending', verificationScore: 45 } },
   ];
+
+  const verificationChecks = [
+    { id: 1, name: 'Verificação de BI', description: 'Confirma identidade do proprietário' },
+    { id: 2, name: 'Título de Propriedade', description: 'Valida documento de posse' },
+    { id: 3, name: 'Comprovante de Morada', description: 'Verifica endereço do imóvel' },
+  ];
+
+  const financialReports = {
+    platformRevenue: {
+      monthly: 2400000,
+      yearly: 28800000,
+      growth: 15.3,
+    },
+    monthlyTrend: monthlyData,
+    revenueByDistrict: [
+      { district: 'Talatona', revenue: 8500000 },
+      { district: 'Luanda Sul', revenue: 6200000 },
+      { district: 'Cidade Alta', revenue: 4800000 },
+      { district: 'Benfica', revenue: 3200000 },
+      { district: 'Kilamba', revenue: 2100000 },
+    ],
+    topLandlords: [
+      { name: 'João Silva', properties: 5, revenue: 2500000, avgOccupancy: 92, verified: true },
+      { name: 'Maria Santos', properties: 3, revenue: 1800000, avgOccupancy: 88, verified: true },
+      { name: 'Pedro Oliveira', properties: 2, revenue: 1200000, avgOccupancy: 85, verified: false },
+    ],
+  };
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-gray-50 via-white to-gray-100">
       <div className="relative overflow-hidden bg-gradient-to-r from-blue-900 via-blue-800 to-green-800 text-white">
-        <div className="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA2MCA2MCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48ZyBmaWxsPSJub25lIiBmaWxsLXJ1bGU9ImV2ZW5vZGQiPjxnIGZpbGw9IiNmZmYiIGZpbGwtb3BhY2l0eT0iMC4wNSI+PHBhdGggZD0iTTM2IDM0djZoLTZWMzRoNnptMC0zMHY2aC02VjRoNnptMCAxMHY2aC02VjE0aDZ6bTAgMTB2NmgtNlYyNGg2em0tMTAgMHY2aC02VjI0aDZ6bTEwIDEwdjZoLTZWMzRoNnptLTIwIDB2NmgtNlYzNGg2em0wLTEwdjZoLTZWMjRoNnptMC0xMHY2aC02VjE0aDZ6bTAgMTB2NmgtNlYyNGg2em0xMCAwdjZoLTZWMjRoNnoiLz48L2c+PC9nPjwvc3ZnPg==')] opacity-30" />
+        <div className="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA2MCA2MCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48ZyBmaWxsPSJub25lIiBmaWxsLXJ1bGU9ImV2ZW5vZGQiPjxnIGZpbGw9IiNmZmYiIGZpbGwtb3BhY2l0eT0iMC4wNSI+PHBhdGggZD0iTTM2IDM0djZoLTZWMzRoNnptMC0zMHY2aC02VjRoNnptMCAxMHY2aC02VjE0aDZ6bTAgMTB2NmgtNlYyNGg2em0tMTAgMHY2aC02VjI0aDZ6bTEwIDEwdjZoLTZWMzRhNnpmLTIwIDB2NmgtNlYzNGg2em0wLTEwdjZoLTZWMjRoNnptMC0xMHY2aC02VjE0aDZ6bTAgMTB2NmgtNlYyNGg2em0xMCAwdjZoLTZWMjRoNnoiLz48L2c+PC9nPjwvc3ZnPg==')] opacity-30" />
         <div className="container mx-auto px-4 py-12 relative">
           <div className="flex items-center justify-between">
             <div>
@@ -127,7 +231,7 @@ export function Dashboard() {
 
       <div className="container mx-auto px-4 py-8">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
-          {stats.map((stat, index) => (
+          {dashboardStats.map((stat: any, index: number) => (
             <motion.div
               key={index}
               initial={{ opacity: 0, y: 20 }}

@@ -190,6 +190,38 @@ async function initializeDatabase() {
       )
     `);
 
+    // Tabela de favoritos (carrinho do inquilino)
+    await connection.query(`
+      CREATE TABLE IF NOT EXISTS favorites (
+        id INT AUTO_INCREMENT PRIMARY KEY,
+        userId INT NOT NULL,
+        propertyId INT NOT NULL,
+        notes TEXT,
+        createdAt TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+        FOREIGN KEY (userId) REFERENCES users(id) ON DELETE CASCADE,
+        FOREIGN KEY (propertyId) REFERENCES properties(id) ON DELETE CASCADE,
+        UNIQUE KEY unique_favorite (userId, propertyId)
+      )
+    `);
+
+    // Adicionar campo status à tabela properties se não existir
+    try {
+      await connection.query(`
+        ALTER TABLE properties ADD COLUMN IF NOT EXISTS status ENUM('available', 'rented', 'inactive') DEFAULT 'available'
+      `);
+    } catch (e) {
+      // Column may already exist
+    }
+
+    // Adicionar campo rentedAt à tabela properties se não existir
+    try {
+      await connection.query(`
+        ALTER TABLE properties ADD COLUMN IF NOT EXISTS rentedAt DATETIME
+      `);
+    } catch (e) {
+      // Column may already exist
+    }
+
     console.log("Banco de dados MySQL inicializado com sucesso.");
   } catch (err) {
     console.error("Erro ao inicializar banco de dados:", err);

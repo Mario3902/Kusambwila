@@ -2,34 +2,57 @@ import { motion } from 'motion/react';
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, AreaChart, Area } from 'recharts';
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '../../components/ui/card';
 import { Badge } from '../../components/ui/badge';
-import { Users, Home, DollarSign, TrendingUp, ShieldCheck, AlertTriangle } from 'lucide-react';
+import { Button } from '../../components/ui/button';
+import { Users, Home, DollarSign, TrendingUp, ShieldCheck, AlertTriangle, FileText, ArrowRight } from 'lucide-react';
 import { useEffect, useState } from 'react';
 import { api } from '../../lib/api';
+import { toast } from 'sonner';
+import { useNavigate } from 'react-router';
+
+interface Stats {
+  totalRevenue: number;
+  totalUsers: number;
+  totalLandlords: number;
+  totalProperties: number;
+  pendingDocuments: number;
+  topLandlords: Array<{
+    firstName: string;
+    lastName: string;
+    total_revenue: number;
+  }>;
+}
 
 export function AdminDashboard() {
-  const [stats, setStats] = useState<any>(null);
+  const navigate = useNavigate();
+  const [stats, setStats] = useState<Stats | null>(null);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     async function loadData() {
       try {
-        const financials = await api.admin.getFinancials();
-        // Aqui simulamos a agregação de stats gerais
+        const [adminStats, financials] = await Promise.all([
+          api.admin.getStats(),
+          api.admin.getFinancials()
+        ]);
+        
         setStats({
-          totalRevenue: financials.totalRevenue,
-          topLandlords: financials.topLandlords,
-          userCount: 3247,
-          propertyCount: 1589,
-          verificationRate: '84%'
+          ...adminStats,
+          topLandlords: financials.topLandlords || []
         });
-      } catch (err) {
+      } catch (err: any) {
         console.error('Erro ao carregar stats:', err);
+        toast.error('Erro ao carregar estatísticas');
       } finally {
         setLoading(false);
       }
     }
     loadData();
   }, []);
+
+  // Calculate verification rate based on real data
+  const verificationRate = stats && stats.totalLandlords > 0
+    ? Math.round(((stats.totalLandlords - (stats.pendingDocuments > 0 ? 1 : 0)) / stats.totalLandlords) * 100)
+    : 0;
 
   if (loading) return <div className="p-8 text-center">Carregando Dashboard...</div>;
 
@@ -45,12 +68,39 @@ export function AdminDashboard() {
         </Badge>
       </div>
 
+      {/* Quick Actions */}
+      {stats && stats.pendingDocuments > 0 && (
+        <Card className="bg-yellow-50 border-yellow-200 shadow-sm">
+          <CardContent className="p-4 flex items-center justify-between">
+            <div className="flex items-center gap-3">
+              <div className="p-2 bg-yellow-100 rounded-lg">
+                <FileText className="w-5 h-5 text-yellow-700" />
+              </div>
+              <div>
+                <p className="font-medium text-yellow-900">
+                  {stats.pendingDocuments} documento(s) pendente(s) para revisão
+                </p>
+                <p className="text-sm text-yellow-700">
+                  Aprove ou rejeite documentos de proprietários
+                </p>
+              </div>
+            </div>
+            <Button 
+              onClick={() => navigate('/admin/documents')}
+              className="bg-yellow-600 hover:bg-yellow-700"
+            >
+              Revisar Agora <ArrowRight className="w-4 h-4 ml-2" />
+            </Button>
+          </CardContent>
+        </Card>
+      )}
+
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
         {[
-          { label: 'Receita Total', value: stats?.totalRevenue?.toLocaleString('pt-AO') + ' Kz', icon: DollarSign, color: 'text-green-600', bg: 'bg-green-50' },
-          { label: 'Total Utilizadores', value: stats?.userCount, icon: Users, color: 'text-blue-600', bg: 'bg-blue-50' },
-          { label: 'Imóveis Ativos', value: stats?.propertyCount, icon: Home, color: 'text-purple-600', bg: 'bg-purple-50' },
-          { label: 'Taxa Verificação', value: stats?.verificationRate, icon: ShieldCheck, color: 'text-orange-600', bg: 'bg-orange-50' },
+          { label: 'Receita Total', value: (stats?.totalRevenue || 0).toLocaleString('pt-AO') + ' Kz', icon: DollarSign, color: 'text-green-600', bg: 'bg-green-50' },
+          { label: 'Total Utilizadores', value: stats?.totalUsers || 0, icon: Users, color: 'text-blue-600', bg: 'bg-blue-50' },
+          { label: 'Imóveis Ativos', value: stats?.totalProperties || 0, icon: Home, color: 'text-purple-600', bg: 'bg-purple-50' },
+          { label: 'Taxa Verificação', value: verificationRate + '%', icon: ShieldCheck, color: 'text-orange-600', bg: 'bg-orange-50' },
         ].map((stat, i) => (
           <Card key={i} className="border-0 shadow-sm">
             <CardContent className="p-6 flex items-center space-x-4">

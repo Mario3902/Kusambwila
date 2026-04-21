@@ -10,9 +10,20 @@ import {
   LogOut,
   Menu,
   X,
-  ShieldCheck
+  ShieldCheck,
+  FileText,
+  User,
+  ChevronDown
 } from 'lucide-react';
 import { Button } from '../../components/ui/button';
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuLabel,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from '../../components/ui/dropdown-menu';
 import { useAuth } from '../../contexts/auth-context';
 import { useEffect, useState } from 'react';
 import { Sheet, SheetContent, SheetTrigger } from '../../components/ui/sheet';
@@ -63,8 +74,10 @@ export function AdminLayout() {
     { icon: LayoutDashboard, label: 'Visão Geral', path: '/admin' },
     { icon: Home, label: 'Gestão de Imóveis', path: '/admin/properties' },
     { icon: Users, label: 'Gestão de Utilizadores', path: '/admin/users' },
+    { icon: FileText, label: 'Documentos', path: '/admin/documents' },
     { icon: BarChart3, label: 'Financeiro', path: '/admin/finance' },
     { icon: Settings, label: 'Configurações', path: '/admin/settings' },
+    { icon: User, label: 'Editar Perfil', path: '/profile' },
   ];
 
   const handleLogout = () => {
@@ -146,6 +159,16 @@ export function AdminLayout() {
                       <span className="font-medium">{item.label}</span>
                     </Link>
                   ))}
+                  <button
+                    onClick={() => {
+                      handleLogout();
+                      setMobileMenuOpen(false);
+                    }}
+                    className="flex items-center space-x-3 p-3 rounded-lg hover:bg-blue-900 transition-colors w-full text-left text-red-400"
+                  >
+                    <LogOut className="w-5 h-5" />
+                    <span className="font-medium">Sair</span>
+                  </button>
                 </nav>
               </SheetContent>
             </Sheet>
@@ -155,11 +178,37 @@ export function AdminLayout() {
           </div>
           
           <div className="flex items-center gap-4">
-            <div className="text-right hidden sm:block">
-              <p className="text-sm font-medium text-gray-900">{user?.firstName} {user?.lastName}</p>
-              <p className="text-xs text-gray-500">Super Administrador</p>
-            </div>
-            <div className="w-10 h-10 rounded-full bg-gray-200 border border-gray-300" />
+            <DropdownMenu>
+              <DropdownMenuTrigger asChild>
+                <button className="flex items-center gap-3 hover:bg-gray-100 rounded-lg p-2 transition-colors">
+                  <div className="text-right hidden sm:block">
+                    <p className="text-sm font-medium text-gray-900">{user?.firstName} {user?.lastName}</p>
+                    <p className="text-xs text-gray-500">Super Administrador</p>
+                  </div>
+                  <div className="w-10 h-10 rounded-full bg-blue-900 flex items-center justify-center text-white font-bold">
+                    {user?.firstName?.[0]}{user?.lastName?.[0]}
+                  </div>
+                  <ChevronDown className="w-4 h-4 text-gray-500" />
+                </button>
+              </DropdownMenuTrigger>
+              <DropdownMenuContent align="end" className="w-56">
+                <DropdownMenuLabel>Minha Conta</DropdownMenuLabel>
+                <DropdownMenuSeparator />
+                <DropdownMenuItem onClick={() => navigate('/profile')} className="cursor-pointer">
+                  <User className="w-4 h-4 mr-2" />
+                  Ver Perfil
+                </DropdownMenuItem>
+                <DropdownMenuItem onClick={() => navigate('/')} className="cursor-pointer">
+                  <Home className="w-4 h-4 mr-2" />
+                  Ir para Site
+                </DropdownMenuItem>
+                <DropdownMenuSeparator />
+                <DropdownMenuItem onClick={handleLogout} className="cursor-pointer text-red-600 focus:text-red-600">
+                  <LogOut className="w-4 h-4 mr-2" />
+                  Sair
+                </DropdownMenuItem>
+              </DropdownMenuContent>
+            </DropdownMenu>
           </div>
         </header>
 

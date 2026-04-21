@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { motion } from 'motion/react';
 import { useNavigate } from 'react-router';
-import { Search, Home as HomeIcon, TrendingUp, Shield, Clock, Users, MapPin, ArrowRight, Star, CheckCircle2, Building2, DollarSign } from 'lucide-react';
+import { Search, Home as HomeIcon, TrendingUp, Shield, Clock, Users, MapPin, ArrowRight, Star, CheckCircle2, Building2, DollarSign, User, LogOut } from 'lucide-react';
 import { Button } from '../components/ui/button';
 import { Input } from '../components/ui/input';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '../components/ui/select';
@@ -61,10 +61,22 @@ export function Home() {
             transition={{ duration: 0.8 }}
             className="text-center max-w-4xl mx-auto"
           >
-            <Badge className="mb-4 bg-white/10 text-white border-white/20 backdrop-blur-sm px-4 py-1.5">
-              <Shield className="w-3.5 h-3.5 mr-1.5" />
-              Plataforma Verificada e Segura
-            </Badge>
+            <div className="flex items-center justify-center gap-3 mb-4 flex-wrap">
+              <Badge className="bg-white/10 text-white border-white/20 backdrop-blur-sm px-4 py-1.5">
+                <Shield className="w-3.5 h-3.5 mr-1.5" />
+                Plataforma Verificada e Segura
+              </Badge>
+              {isAuthenticated && user && (
+                <Button
+                  onClick={() => navigate('/profile')}
+                  className="bg-white/20 text-white border-white/30 hover:bg-white/30 backdrop-blur-sm px-4 py-1.5 h-auto"
+                  variant="outline"
+                >
+                  <User className="w-4 h-4 mr-2" />
+                  Ir ao Perfil
+                </Button>
+              )}
+            </div>
             <h1 className="text-4xl md:text-6xl font-bold mb-6 leading-tight">
               Encontre a Casa dos Seus{' '}
               <span className="bg-gradient-to-r from-green-400 to-emerald-300 bg-clip-text text-transparent">

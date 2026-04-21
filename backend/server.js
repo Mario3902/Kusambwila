@@ -477,6 +477,127 @@ app.put(
   },
 );
 
+// --- ADMIN USERS ROUTES ---
+app.get(
+  "/api/admin/users",
+  auth.authenticateToken,
+  auth.authorizeRole(["admin"]),
+  async (req, res) => {
+    try {
+      const [users] = await pool.query(
+        `SELECT u.id, u.firstName, u.lastName, u.email, u.phone, u.userType, 
+                u.biNumber, u.createdAt, u.updatedAt,
+                dv.biStatus, dv.propertyTitleStatus, dv.addressProofStatus, 
+                dv.verificationScore, dv.isVerified,
+                (SELECT COUNT(*) FROM documents WHERE userId = u.id AND status = 'pending') as pendingDocuments
+         FROM users u
+         LEFT JOIN document_verifications dv ON u.id = dv.userId
+         ORDER BY u.createdAt DESC`
+      );
+      res.json(users);
+    } catch (err) {
+      res.status(500).json({ error: err.message });
+    }
+  }
+);
+
+// Admin: Get Single User Details
+app.get(
+  "/api/admin/users/:id",
+  auth.authenticateToken,
+  auth.authorizeRole(["admin"]),
+  async (req, res) => {
+    try {
+      const [users] = await pool.query(
+        `SELECT u.id, u.firstName, u.lastName, u.email, u.phone, u.userType, 
+                u.biNumber, u.createdAt, u.updatedAt,
+                dv.biStatus, dv.propertyTitleStatus, dv.addressProofStatus, 
+                dv.verificationScore, dv.isVerified
+         FROM users u
+         LEFT JOIN document_verifications dv ON u.id = dv.userId
+         WHERE u.id = ?`,
+        [req.params.id]
+      );
+      
+      if (users.length === 0) {
+        return res.status(404).json({ error: "Utilizador não encontrado" });
+      }
+      
+      // Get user's documents
+      const [documents] = await pool.query(
+        `SELECT d.*, reviewer.firstName as reviewerFirstName, reviewer.lastName as reviewerLastName
+         FROM documents d
+         LEFT JOIN users reviewer ON d.verifiedBy = reviewer.id
+         WHERE d.userId = ?
+         ORDER BY d.uploadedAt DESC`,
+        [req.params.id]
+      );
+      
+      res.json({ ...users[0], documents });
+    } catch (err) {
+      res.status(500).json({ error: err.message });
+    }
+  }
+);
+
+// Admin: Delete Property
+app.delete(
+  "/api/admin/properties/:id",
+  auth.authenticateToken,
+  auth.authorizeRole(["admin"]),
+  async (req, res) => {
+    try {
+      // First delete related images
+      await pool.query("DELETE FROM property_images WHERE propertyId = ?", [req.params.id]);
+      
+      // Then delete property financials if exists
+      await pool.query("DELETE FROM property_financials WHERE propertyId = ?", [req.params.id]);
+      
+      // Finally delete the property
+      const [result] = await pool.query("DELETE FROM properties WHERE id = ?", [req.params.id]);
+      
+      if (result.affectedRows === 0) {
+        return res.status(404).json({ error: "Imóvel não encontrado" });
+      }
+      
+      res.json({ message: "Imóvel removido com sucesso" });
+    } catch (err) {
+      res.status(500).json({ error: err.message });
+    }
+  }
+);
+
+// Admin: Get Dashboard Stats
+app.get(
+  "/api/admin/stats",
+  auth.authenticateToken,
+  auth.authorizeRole(["admin"]),
+  async (req, res) => {
+    try {
+      const [userStats] = await pool.query(
+        "SELECT COUNT(*) as total, SUM(CASE WHEN userType = 'landlord' THEN 1 ELSE 0 END) as landlords FROM users"
+      );
+      const [propertyStats] = await pool.query("SELECT COUNT(*) as total FROM properties");
+      const [pendingDocs] = await pool.query(
+        "SELECT COUNT(*) as total FROM documents WHERE status = 'pending'"
+      );
+      const [revenue] = await pool.query(
+        "SELECT SUM(monthlyRevenue) as total FROM property_financials"
+      );
+      
+      res.json({
+        totalUsers: userStats[0].total,
+        totalLandlords: userStats[0].landlords,
+        totalProperties: propertyStats[0].total,
+        pendingDocuments: pendingDocs[0].total,
+        totalRevenue: revenue[0].total || 0
+      });
+    } catch (err) {
+      res.status(500).json({ error: err.message });
+    }
+  }
+);
+
 // --- FINANCIALS ROUTES ---
 app.get(
   "/api/admin/financials",
@@ -499,6 +620,134 @@ app.get(
       res.status(500).json({ error: err.message });
     }
   },
+);
+
+// --- FAVORITES ROUTES (Carrinho do Inquilino) ---
+
+// Get user favorites
+app.get(
+  "/api/favorites",
+  auth.authenticateToken,
+  async (req, res) => {
+    try {
+      const [favorites] = await pool.query(
+        `SELECT f.*, p.title, p.price, p.district, p.type, p.bedrooms, p.bathrooms, p.area, p.status,
+                u.firstName as landlordFirstName, u.lastName as landlordLastName,
+                (SELECT url FROM property_images WHERE propertyId = p.id AND isPrimary = TRUE LIMIT 1) as imageUrl
+         FROM favorites f
+         JOIN properties p ON f.propertyId = p.id
+         JOIN users u ON p.landlordId = u.id
+         WHERE f.userId = ?
+         ORDER BY f.createdAt DESC`,
+        [req.user.id]
+      );
+      res.json(favorites);
+    } catch (err) {
+      res.status(500).json({ error: err.message });
+    }
+  }
+);
+
+// Add to favorites
+app.post(
+  "/api/favorites",
+  auth.authenticateToken,
+  async (req, res) => {
+    try {
+      const { propertyId, notes } = req.body;
+      
+      await pool.query(
+        "INSERT INTO favorites (userId, propertyId, notes) VALUES (?, ?, ?)",
+        [req.user.id, propertyId, notes || null]
+      );
+      
+      res.status(201).json({ message: "Adicionado aos favoritos" });
+    } catch (err) {
+      if (err.code === 'ER_DUP_ENTRY') {
+        return res.status(400).json({ error: "Imóvel já está nos favoritos" });
+      }
+      res.status(500).json({ error: err.message });
+    }
+  }
+);
+
+// Remove from favorites
+app.delete(
+  "/api/favorites/:propertyId",
+  auth.authenticateToken,
+  async (req, res) => {
+    try {
+      await pool.query(
+        "DELETE FROM favorites WHERE userId = ? AND propertyId = ?",
+        [req.user.id, req.params.propertyId]
+      );
+      res.json({ message: "Removido dos favoritos" });
+    } catch (err) {
+      res.status(500).json({ error: err.message });
+    }
+  }
+);
+
+// --- PROPERTY STATUS ROUTES (Para Proprietários) ---
+
+// Update property status (available, rented, inactive)
+app.put(
+  "/api/properties/:id/status",
+  auth.authenticateToken,
+  auth.authorizeRole(["landlord", "admin"]),
+  async (req, res) => {
+    try {
+      const { status } = req.body; // 'available', 'rented', 'inactive'
+      
+      // Verify property belongs to user (unless admin)
+      if (req.user.userType !== 'admin') {
+        const [properties] = await pool.query(
+          "SELECT landlordId FROM properties WHERE id = ?",
+          [req.params.id]
+        );
+        if (properties.length === 0) {
+          return res.status(404).json({ error: "Imóvel não encontrado" });
+        }
+        if (properties[0].landlordId !== req.user.id) {
+          return res.status(403).json({ error: "Não autorizado" });
+        }
+      }
+      
+      const rentedAt = status === 'rented' ? new Date() : null;
+      
+      await pool.query(
+        "UPDATE properties SET status = ?, rentedAt = ? WHERE id = ?",
+        [status, rentedAt, req.params.id]
+      );
+      
+      res.json({ message: `Imóvel marcado como ${status}` });
+    } catch (err) {
+      res.status(500).json({ error: err.message });
+    }
+  }
+);
+
+// Get my properties with status (for landlords)
+app.get(
+  "/api/my-properties",
+  auth.authenticateToken,
+  auth.authorizeRole(["landlord"]),
+  async (req, res) => {
+    try {
+      const [properties] = await pool.query(
+        `SELECT p.*, 
+                (SELECT url FROM property_images WHERE propertyId = p.id AND isPrimary = TRUE LIMIT 1) as imageUrl,
+                (SELECT COUNT(*) FROM favorites WHERE propertyId = p.id) as favoritesCount
+         FROM properties p
+         WHERE p.landlordId = ?
+         ORDER BY p.createdAt DESC`,
+        [req.user.id]
+      );
+      res.json(properties);
+    } catch (err) {
+      res.status(500).json({ error: err.message });
+    }
+  }
 );
 
 // Error handler para multer
